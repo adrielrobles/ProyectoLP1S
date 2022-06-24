@@ -100,6 +100,11 @@ def t_NOMBRE_VARIABLE(t):
   r'([a-z]|_|\$|\@)[a-zA-Z0-9_]+'
   t.type = reservadas.get(t.value,"NOMBRE_VARIABLE")
   return t
+
+def t_COMENTARIO(t):
+  r'\#.*'
+
+# termina Darinka Townsend
 #Adriel Robles
 def t_NOMBRE_FUNCION(t):
   r'[a-z][a-zA-Z0-9_]*'
