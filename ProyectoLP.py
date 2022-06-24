@@ -1,40 +1,30 @@
 import ply.lex as lexico
-
 reservadas = {
+  #Empieza Adriel Robles
   #Palabras reservadas
-  "in":"IN",
-  "class":"CLASS",
-  "puts":"PUTS",
+  "in":"IN","alias":"ALIAS","break":"BREAK","undef":"UNDEF","defined?":"DEFINED",
+  "class":"CLASS","ensure":"ENSURE","unlees":"UNLEES","in":"IN","module":"MODULE",
+  "puts":"PUTS","next":"NEXT","nil":"NIL","in":"IN","redo":"REDO","rescue":"RESCUE",
+  "retry":"RETRY","yield":"YIELD","self":"SELF","super":"SUPER","then":"THEN",
+  "_FILE_":"FILE","_LINE_":"LINE","val":"VAL","new":"NEW",
   #estructura de control
-  "if":"IF",
-  "else":"ELSE",
-  "until":"UNTIL",
-  "end":"END",
-  "case":"case",
-  "elseif":"ELSEIF",
+  "if":"IF","else":"ELSE","until":"UNTIL","end":"END","case":"CASE","elseif":"ELSEIF",
+  "do":"DO","for":"FOR","when":"WHEN","while":"WHILE",
   #tipado
-  "String":"STRING",
-  "Integer":"INTEGER",
-  "Float":"FLOAT",
+  "String":"STRING","Integer":"INTEGER","Float":"FLOAT",
   #funciones
-  "def":"DEF",
-  "end":"END",
-  "return":"RETURN",
-
+  "def":"DEF","end":"END","return":"RETURN",
+  #Termina Adriel Robles
   #Darinka Townsend
   #OPERADORES DE COMPARACION
-  "and" : "AND",
-  "or" : "OR",
-  "not" : "NOT",
+  "and" : "AND","or" : "OR","not" : "NOT","false": "FALSE","true": "TRUE",
   #HASHES
-  "dict" : "DICCIONARIO"
-
-  
+  "dict" : "DICCIONARIO","push":"PUSH","delete_at":"DELETE"
 }
 
-tokens = ("MAS", "MENOS", "DIV", "MULTIPLICACION", "MODULO","DOBLE_IGUAL","MULTIPLICACION_IGUAL","EXPONENCIAL_IGUAL"       , "MENOR_IGUAL","NO_IGUAL","BACKS", "MENOR_QUE", "MAYOR_IGUAL",
-         "IGUAL", "PAR_I", "PAR_D",
-         "NOMBRE_VARIABLE","VALOR_ENTERO","VALOR_DECIMAL","CORCHETE_D","CORCHETE_I","ASIGNACION","t_LLAVE_I","t_LLAVE_D") + tuple(reservadas.values())
+tokens = ("MAS", "MENOS", "DIV", "MULTIPLICACION", "MODULO","DOBLE_IGUAL","MULTIPLICACION_IGUAL","EXPONENCIAL_IGUAL", 
+          "MENOR_IGUAL","NO_IGUAL","BACKS", "MENOR_QUE", "MAYOR_IGUAL","IGUAL", "PAR_I", "PAR_D","NOMBRE_VARIABLE","VALOR_ENTERO",
+          "VALOR_DECIMAL","CORCHETE_D","CORCHETE_I","ASIGNACION","LLAVE_I","LLAVE_D","NOMBRE_FUNCION") + tuple(reservadas.values())
 
 #Definir expresiones regulares
 #Darinka Townsend
@@ -79,8 +69,12 @@ def t_NOMBRE_VARIABLE(t):
   r'([a-z]|_|\$|\@)[a-zA-Z0-9_]+'
   t.type = reservadas.get(t.value,"NOMBRE_VARIABLE")
   return t
-
-
+#Adriel Robles
+def t_NOMBRE_FUNCION(t):
+  r'[a-z][a-zA-Z0-9_]*'
+  t.type = reservadas.get(t.value,"NOMBRE_FUNCION")
+  return t
+#termina Adriel Robles
 
 def t_contadorLineas(t):
     r'\n+'
@@ -100,7 +94,7 @@ def getTokens(lexer):
         print(tok)
 
 linea=" "
-codigo = open("source.vb")
+codigo = open("prueba.rb")
 for linea in codigo:
   validador.input(linea)
   getTokens(validador)
