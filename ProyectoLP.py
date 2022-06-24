@@ -5,7 +5,7 @@ reservadas = {
   #Palabras reservadas
   "in":"IN","alias":"ALIAS","break":"BREAK","undef":"UNDEF","defined?":"DEFINED",
   "class":"CLASS","ensure":"ENSURE","unlees":"UNLEES","in":"IN","module":"MODULE",
-  "puts":"PUTS","next":"NEXT","nil":"NIL","in":"IN","redo":"REDO","rescue":"RESCUE",
+  "next":"NEXT","nil":"NIL","in":"IN","redo":"REDO","rescue":"RESCUE",
   "retry":"RETRY","yield":"YIELD","self":"SELF","super":"SUPER","then":"THEN",
   "_FILE_":"VFILE","_LINE_":"LINE","val":"VAL","new":"NEW",
   #estructura de control
@@ -34,7 +34,13 @@ reservadas = {
   #OPERADORES DE COMPARACION
   "and" : "AND","or" : "OR","not" : "NOT",
   #HASHES
-  "dict" : "DICCIONARIO","push":"PUSH","delete_at":"DELETE"
+  "dict" : "DICCIONARIO","push":"PUSH","delete_at":"DELETE",
+  #MANEJO DE ENTRADA Y SALIDA DE DATOS
+  "puts" : "PUTS",
+  "gets" : "GETS",
+  "chomps" : "CHOMPS",
+  "flush" : "FLUSH"
+  #termina Darinka Townsend
 }
 
 tokens = ("MAS", "MENOS", "DIV", "MULTIPLICACION", "MODULO","DOBLE_IGUAL","MULTIPLICACION_IGUAL","EXPONENCIAL_IGUAL", 
