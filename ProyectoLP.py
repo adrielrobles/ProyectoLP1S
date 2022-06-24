@@ -102,7 +102,7 @@ def t_NOMBRE_VARIABLE(t):
   return t
 
 def t_COMENTARIO(t):
-  r'\#.*'
+  r'^\#.*'
 
 # termina Darinka Townsend
 #Adriel Robles
