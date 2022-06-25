@@ -30,7 +30,7 @@ reservadas = {
 
   # Termina Jean Moreano
 
-  #Darinka Townsend
+  #Empieza Darinka Townsend
   #OPERADORES DE COMPARACION
   "and" : "AND","or" : "OR","not" : "NOT",
   #HASHES
@@ -49,7 +49,7 @@ tokens = ("MAS", "MENOS", "DIV", "MULTIPLICACION", "MODULO","DOBLE_IGUAL","MULTI
           "CORCHETE_D","CORCHETE_I","ASIGNACION","PIPE","POTENCIA","LLAVE_I","INTERVALO","LLAVE_D","NOMBRE_FUNCION","PUNTO","MAS_IGUAL","COMA","MAYOR_QUE") + tuple(reservadas.values())
 
 #Definir expresiones regulares
-#Darinka Townsend
+#Empieza Darinka Townsend
 #OPERADORES ARITMETICOS
 t_MAS = r'\+'
 t_MENOS = r'-'
@@ -88,8 +88,8 @@ t_PUNTO=r'\.'
 t_COMA=r'\,'
 t_INTERVALO=r'\.\.'
 t_PIPE=r'\|'
-
-# Jean Moreano
+# termina Darinka Townsend
+# empieza Jean Moreano
 
 #operadores de asignacion
 t_RESTA_IGUAL=r'-='
@@ -103,7 +103,7 @@ t_FLOTANTE = r'[0-9]+\.[0-9]+'
 
 #Termina Jean Moreano
 
-#Darinka Townsend
+#Empieza Darinka Townsend
 def t_NOMBRE_VARIABLE(t):
   r'([a-z]|_|\$|\@)[a-zA-Z0-9_]*'
   t.type = reservadas.get(t.value,"NOMBRE_VARIABLE")
@@ -115,14 +115,14 @@ def t_COMENTARIO(t):
   r'\#.*'
 
 # termina Darinka Townsend
-#Adriel Robles
+#Empieza Adriel Robles
 def t_NOMBRE_FUNCION(t):
   r'[a-zA-Z][a-zA-Z0-9_]*'
   t.type = reservadas.get(t.value,"NOMBRE_FUNCION")
   return t
 #termina Adriel Robles
 
-#Jean Moreano
+#Empieza Jean Moreano
 def t_NOMBRE_CLASE(t):
   r'[A-Z][a-z]+(_[A-Z][a-z]+|[A-Z][a-z]+)*'
   t.type = reservadas.get(t.value,"NOMBRE_CLASE")
@@ -134,6 +134,7 @@ def t_CADENA(t):
   return t
 
 #Termina Jean Moreano
+#Empieza Adriel Robles
 def t_contadorLineas(t):
     r'\n+'
     t.lexer.lineno += t.value.count("\n")
@@ -161,3 +162,5 @@ for linea in codigo:
   validador.input(linea)
   getTokens(validador)
 codigo.close()
+
+#termina Adriel Robles
