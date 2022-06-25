@@ -12,7 +12,7 @@ reservadas = {
   "if":"IF","else":"ELSE","until":"UNTIL","end":"END","case":"CASE","elseif":"ELSEIF",
   "do":"DO","for":"FOR","when":"WHEN","while":"WHILE", "each":"EACH",
   #tipado
-  "String":"STRING","Integer":"INTEGER","Float":"FLOAT",
+  "String":"STRING","Integer":"INTEGER","Float":"FLOAT","Array":"ARRAY",
   #funciones
   "def":"DEF","end":"END","return":"RETURN",
   #Termina Adriel Robles
@@ -20,13 +20,13 @@ reservadas = {
   # Empieza Jean Moreano
 
   #clases
-  "class":"CLASS",
+  "class" : "CLASS",
   #boolean
-  "false": "FALSE","true": "TRUE",
+  "false" : "FALSE","true": "TRUE",
   #casting
-  "to_s":"TOSTRING", "to_i":"TOINTEGER", "to_f":"TOFLOAT",
+  "to_s" :"TOSTRING", "to_i":"TOINTEGER", "to_f":"TOFLOAT",
   #manejo de archivos
-  "File":"FILE","read":"READ","write":"WRITE","open":"OPEN", "split":"SPLIT",
+  "File" : "FILE","read":"READ","write":"WRITE","open":"OPEN", "split":"SPLIT","STDOUT":"STDOUT",
 
   # Termina Jean Moreano
 
@@ -38,14 +38,15 @@ reservadas = {
   #MANEJO DE ENTRADA Y SALIDA DE DATOS
   "puts" : "PUTS",
   "gets" : "GETS",
-  "chomps" : "CHOMPS",
-  "flush" : "FLUSH"
+  "chomp" : "CHOMP",
+  "flush" : "FLUSH",
+  "print" : "PRINT"
   #termina Darinka Townsend
 }
 
 tokens = ("MAS", "MENOS", "DIV", "MULTIPLICACION", "MODULO","DOBLE_IGUAL","MULTIPLICACION_IGUAL","EXPONENCIAL_IGUAL", 
           "MENOR_IGUAL","NO_IGUAL","BACKS", "MENOR_QUE", "MAYOR_IGUAL","IGUAL", "PAR_I", "PAR_D","NOMBRE_VARIABLE", "NOMBRE_CLASE", "DIVISION_IGUAL","RESTA_IGUAL","MODULO_IGUAL", "ENTERO","FLOTANTE","CADENA",
-          "CORCHETE_D","CORCHETE_I","ASIGNACION","LLAVE_I","LLAVE_D","NOMBRE_FUNCION") + tuple(reservadas.values())
+          "CORCHETE_D","CORCHETE_I","ASIGNACION","PIPE","POTENCIA","LLAVE_I","INTERVALO","LLAVE_D","NOMBRE_FUNCION","PUNTO","MAS_IGUAL","COMA","MAYOR_QUE") + tuple(reservadas.values())
 
 #Definir expresiones regulares
 #Darinka Townsend
@@ -53,8 +54,10 @@ tokens = ("MAS", "MENOS", "DIV", "MULTIPLICACION", "MODULO","DOBLE_IGUAL","MULTI
 t_MAS = r'\+'
 t_MENOS = r'-'
 t_MULTIPLICACION= r'\*'
+t_POTENCIA=r'\*\*'
 t_DIV= r'/'
 t_MODULO = r'%'
+t_MAS_IGUAL=r'\+='
 t_MULTIPLICACION_IGUAL = r'\*='
 t_EXPONENCIAL_IGUAL = r'\*\*='
 t_PAR_D = r'\)'
@@ -69,6 +72,7 @@ t_LLAVE_D = r'\}'
 
 #OPERADORES LOGICOS
 t_MENOR_QUE = r'<'
+t_MAYOR_QUE = r'>'
 t_MAYOR_IGUAL = r'>='
 t_DOBLE_IGUAL= r'=='
 t_MENOR_IGUAL = r'<='
@@ -80,6 +84,10 @@ t_ignore = " \t"
 t_BACKS = r'\\'
 t_CORCHETE_I=r'\['
 t_CORCHETE_D=r'\]'
+t_PUNTO=r'\.'
+t_COMA=r'\,'
+t_INTERVALO=r'\.\.'
+t_PIPE=r'\|'
 
 # Jean Moreano
 
@@ -97,17 +105,19 @@ t_FLOTANTE = r'[0-9]+\.[0-9]+'
 
 #Darinka Townsend
 def t_NOMBRE_VARIABLE(t):
-  r'([a-z]|_|\$|\@)[a-zA-Z0-9_]+'
+  r'([a-z]|_|\$|\@)[a-zA-Z0-9_]*'
   t.type = reservadas.get(t.value,"NOMBRE_VARIABLE")
   return t
 
+
+
 def t_COMENTARIO(t):
-  r'^\#.*'
+  r'\#.*'
 
 # termina Darinka Townsend
 #Adriel Robles
 def t_NOMBRE_FUNCION(t):
-  r'[a-z][a-zA-Z0-9_]*'
+  r'[a-zA-Z][a-zA-Z0-9_]*'
   t.type = reservadas.get(t.value,"NOMBRE_FUNCION")
   return t
 #termina Adriel Robles
@@ -141,11 +151,13 @@ def getTokens(lexer):
             break 
         print(tok)
 
+
+print("Analisis terminado... :)")
+
+
 linea=" "
-codigo = open("prueba.rb")
+codigo = open("prueba.rb",encoding="utf8")
 for linea in codigo:
   validador.input(linea)
   getTokens(validador)
 codigo.close()
-
-print("Analisis terminado... :)")
