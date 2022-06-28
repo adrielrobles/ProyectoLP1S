@@ -45,7 +45,8 @@ reservadas = {
 }
 
 tokens = ("MAS", "MENOS", "DIV", "MULTIPLICACION", "MODULO","DOBLE_IGUAL","MULTIPLICACION_IGUAL","EXPONENCIAL_IGUAL", 
-          "MENOR_IGUAL","NO_IGUAL","BACKS", "MENOR_QUE", "MAYOR_IGUAL","IGUAL", "PAR_I", "PAR_D","NOMBRE_VARIABLE", "NOMBRE_CLASE", "DIVISION_IGUAL","RESTA_IGUAL","MODULO_IGUAL", "ENTERO","FLOTANTE","CADENA",
+          "MENOR_IGUAL","NO_IGUAL","BACKS", "MENOR_QUE", "MAYOR_IGUAL","IGUAL", "PAR_I", "PAR_D","NOMBRE_VARIABLE","VARIABLE_GLOBAL",
+           "VARIABLE_INSTANCIA","VARIABLE_CLASE","NOMBRE_CLASE", "DIVISION_IGUAL","RESTA_IGUAL","MODULO_IGUAL", "ENTERO","FLOTANTE","CADENA",
           "CORCHETE_D","CORCHETE_I","ASIGNACION","PIPE","POTENCIA","LLAVE_I","INTERVALO","LLAVE_D","NOMBRE_FUNCION","PUNTO","MAS_IGUAL","COMA","MAYOR_QUE") + tuple(reservadas.values())
 
 #Definir expresiones regulares
@@ -97,20 +98,32 @@ t_DIVISION_IGUAL = r'/='
 t_MODULO_IGUAL = r'%='
 
 #Tipos de datos
-t_ENTERO = r'[0-9]+'
-t_FLOTANTE = r'[0-9]+\.[0-9]+'
+t_ENTERO = r'0|\-?[1-9][0-9]*'
+t_FLOTANTE = r'(0|\-?[1-9][0-9]*)\.(0|[1-9][0-9]*)'
 
 
 #Termina Jean Moreano
 
 #Empieza Darinka Townsend
 def t_NOMBRE_VARIABLE(t):
-  r'([a-z]|_|\$|\@)[a-zA-Z0-9_]*'
+  r'([a-z]|_)[a-zA-Z0-9_]*'
   t.type = reservadas.get(t.value,"NOMBRE_VARIABLE")
   return t
+  
+def t_VARIABLE_GLOBAL(t):
+  r'\$[a-zA-Z0-9_]*'
+  t.type = reservadas.get(t.value,"VARIABLE_GLOBAL")
+  return t
 
+def t_VARIABLE_INSTANCIA(t):
+  r'\@[a-zA-Z0-9_]*'
+  t.type = reservadas.get(t.value,"VARIABLE_INSTANCIA")
+  return t
 
-
+def t_VARIABLE_CLASE(t):
+  r'\@@[a-zA-Z0-9_]*'
+  t.type = reservadas.get(t.value,"VARIABLE_CLASE")
+  return t
 def t_COMENTARIO(t):
   r'\#.*'
 

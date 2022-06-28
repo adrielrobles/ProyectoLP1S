@@ -1,0 +1,236 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    ALIAS
+    AND
+    ARRAY
+    ASIGNACION
+    BACKS
+    BREAK
+    CADENA
+    CASE
+    CHOMP
+    CLASS
+    COMA
+    CORCHETE_D
+    CORCHETE_I
+    DEF
+    DEFINED
+    DELETE
+    DICCIONARIO
+    DIV
+    DIVISION_IGUAL
+    DO
+    DOBLE_IGUAL
+    EACH
+    ELSE
+    ELSEIF
+    END
+    ENSURE
+    ENTERO
+    EXPONENCIAL_IGUAL
+    FALSE
+    FILE
+    FLOAT
+    FLOTANTE
+    FLUSH
+    FOR
+    GETS
+    IF
+    IGUAL
+    IN
+    INTEGER
+    INTERVALO
+    LINE
+    LLAVE_D
+    LLAVE_I
+    MAS
+    MAS_IGUAL
+    MAYOR_IGUAL
+    MAYOR_QUE
+    MENOR_IGUAL
+    MENOR_QUE
+    MENOS
+    MODULE
+    MODULO
+    MODULO_IGUAL
+    MULTIPLICACION
+    MULTIPLICACION_IGUAL
+    NEW
+    NEXT
+    NIL
+    NOMBRE_CLASE
+    NOMBRE_FUNCION
+    NOT
+    NO_IGUAL
+    OPEN
+    OR
+    PAR_D
+    PAR_I
+    PIPE
+    POTENCIA
+    PRINT
+    PUNTO
+    PUSH
+    PUTS
+    READ
+    REDO
+    RESCUE
+    RESTA_IGUAL
+    RETRY
+    RETURN
+    SELF
+    SPLIT
+    STDOUT
+    STRING
+    SUPER
+    THEN
+    TOFLOAT
+    TOINTEGER
+    TOSTRING
+    TRUE
+    UNDEF
+    UNLEES
+    UNTIL
+    VAL
+    VFILE
+    WHEN
+    WHILE
+    WRITE
+    YIELD
+
+Grammar
+
+Rule 0     S' -> sentencias
+Rule 1     sentencias -> NOMBRE_VARIABLE
+
+Terminals, with rules where they appear
+
+ALIAS                : 
+AND                  : 
+ARRAY                : 
+ASIGNACION           : 
+BACKS                : 
+BREAK                : 
+CADENA               : 
+CASE                 : 
+CHOMP                : 
+CLASS                : 
+COMA                 : 
+CORCHETE_D           : 
+CORCHETE_I           : 
+DEF                  : 
+DEFINED              : 
+DELETE               : 
+DICCIONARIO          : 
+DIV                  : 
+DIVISION_IGUAL       : 
+DO                   : 
+DOBLE_IGUAL          : 
+EACH                 : 
+ELSE                 : 
+ELSEIF               : 
+END                  : 
+ENSURE               : 
+ENTERO               : 
+EXPONENCIAL_IGUAL    : 
+FALSE                : 
+FILE                 : 
+FLOAT                : 
+FLOTANTE             : 
+FLUSH                : 
+FOR                  : 
+GETS                 : 
+IF                   : 
+IGUAL                : 
+IN                   : 
+INTEGER              : 
+INTERVALO            : 
+LINE                 : 
+LLAVE_D              : 
+LLAVE_I              : 
+MAS                  : 
+MAS_IGUAL            : 
+MAYOR_IGUAL          : 
+MAYOR_QUE            : 
+MENOR_IGUAL          : 
+MENOR_QUE            : 
+MENOS                : 
+MODULE               : 
+MODULO               : 
+MODULO_IGUAL         : 
+MULTIPLICACION       : 
+MULTIPLICACION_IGUAL : 
+NEW                  : 
+NEXT                 : 
+NIL                  : 
+NOMBRE_CLASE         : 
+NOMBRE_FUNCION       : 
+NOMBRE_VARIABLE      : 1
+NOT                  : 
+NO_IGUAL             : 
+OPEN                 : 
+OR                   : 
+PAR_D                : 
+PAR_I                : 
+PIPE                 : 
+POTENCIA             : 
+PRINT                : 
+PUNTO                : 
+PUSH                 : 
+PUTS                 : 
+READ                 : 
+REDO                 : 
+RESCUE               : 
+RESTA_IGUAL          : 
+RETRY                : 
+RETURN               : 
+SELF                 : 
+SPLIT                : 
+STDOUT               : 
+STRING               : 
+SUPER                : 
+THEN                 : 
+TOFLOAT              : 
+TOINTEGER            : 
+TOSTRING             : 
+TRUE                 : 
+UNDEF                : 
+UNLEES               : 
+UNTIL                : 
+VAL                  : 
+VFILE                : 
+WHEN                 : 
+WHILE                : 
+WRITE                : 
+YIELD                : 
+error                : 
+
+Nonterminals, with rules where they appear
+
+sentencias           : 0
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . sentencias
+    (1) sentencias -> . NOMBRE_VARIABLE
+
+    NOMBRE_VARIABLE shift and go to state 2
+
+    sentencias                     shift and go to state 1
+
+state 1
+
+    (0) S' -> sentencias .
+
+
+
+state 2
+
+    (1) sentencias -> NOMBRE_VARIABLE .
+
+    $end            reduce using rule 1 (sentencias -> NOMBRE_VARIABLE .)
+
