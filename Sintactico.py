@@ -1,4 +1,3 @@
-
 import ply.yacc as yacc
 
 #Importe todos los tokens para usarlo en las reglas
@@ -8,13 +7,32 @@ def p_instrucciones(p):
   '''instrucciones : estructurasControl
                    | estructuraFunciones
                    | estructuraSalida
+                   | estructuraAsignacion
+                   | llamadoFunciones
                 '''
 def p_cuerpo(p):
     '''cuerpo : estructurasControl
               | estructuraSalida
+              | estructuraAsignacion
+              | llamadoFunciones
     '''
 # ----------------------------------Operadores Asignacion----------------------------------
+def p_estructuraAsignacion(p):
+  '''estructuraAsignacion : NOMBRE_VARIABLE tipoAsignacion variables
+                          | NOMBRE_VARIABLE IGUAL variablesTotales
+                          | NOMBRE_VARIABLE IGUAL estructuraComparacion
+                          Falta operaciones matematicas, llamados de funciones, arrays, hashes,
+                          leer archivos, casting, entrada de datos
+                '''
 
+def p_tipoAsignacion(p):
+  '''tipoAsignacion : MAS_IGUAL
+                    | RESTA_IGUAL
+                    | MULTIPLICACION_IGUAL
+                    | DIVISION_IGUAL
+                    | MODULO_IGUAL
+                    | EXPONENCIAL_IGUAL
+                '''
 # ----------------------------------Operadores Comparacion---------------------------------
 def p_estructuraComparacion(p):
   '''estructuraComparacion : 
@@ -37,10 +55,24 @@ def p_estructuraElse(p):
 # ----------------------------------Funciones-----------------------------------
 def p_estructuraFunciones(p):
   '''estructuraFunciones : DEF funcionSinAtributos END
+                         | DEF funcionConAtributos END
   '''
   
 def p_funcionSinAtributos(p):
   '''funcionSinAtributos : NOMBRE_FUNCION PAR_I PAR_D cuerpo
+  '''
+
+def p_funcionConAtributos(p):
+  '''funcionConAtributos : NOMBRE_FUNCION PAR_I parametrosFunciones PAR_D cuerpo
+  '''
+
+def p_parametrosFunciones(p):
+  '''parametrosFunciones : TiposNomVariables
+                         | TiposNomVariables COMA parametrosFunciones
+  '''
+def p_llamadoFunciones(p):
+  '''llamadoFunciones : NOMBRE_FUNCION PAR_I PAR_D 
+                      | NOMBRE_FUNCION PAR_I parametrosFunciones PAR_D
   '''
 # ----------------------------------Entrada y salida de Datos-----------------------------------
 def p_estructuraSalida(p):
@@ -53,18 +85,22 @@ def p_operadoresSalidas(p):
                 '''
 
 def p_cuerpoSalida(p):
-  '''cuerpoSalida : variables
+  '''cuerpoSalida : variablesTotales
                   | CADENA MAS TiposNomVariables
   '''
 # ----------------------------------Casting-----------------------------------
 # ----------------------------------Manejo de archivos-----------------------------------
 
 # ----------------------------------Variables-----------------------------------
+def p_variablesTotales(p):
+    '''boleanos : variables 
+                | boleanos
+    '''
 def p_variables(p):
   '''variables : CADENA
                | numericos
                | TiposNomVariables
-               | boleanos '''
+                '''
 
 def p_tiposNomVariables(p):
   '''tiposNomVariables : NOMBRE_VARIABLE
