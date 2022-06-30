@@ -58,7 +58,7 @@ end
 #until
 iterador = 0 
 until iterador > 5
-  puts "el número es: "+iterador 
+  puts "el número es: "+String(iterador)
   iterador += 1
 end
 
