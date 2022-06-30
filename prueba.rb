@@ -24,10 +24,12 @@ puts "La ciudad es " + ciudad
 
 
 #ARREGLO
-my_arr = Array.new my_other_arr = []
+my_arr = Array.new
+my_other_arr = []
 my_third_array = ["one", "two", "three"]
 my_arr.push("animal")
-array = ["Jean", "Adriel", "Darinka"] array.delete_at(1)
+array = ["Jean", "Adriel", "Darinka"] 
+array.delete_at(1)
 
 #HASH
 calificaciones = { 'Carlos' => 5,

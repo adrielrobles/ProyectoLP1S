@@ -9,20 +9,26 @@ def p_instrucciones(p):
                    | estructuraSalida
                    | estructuraAsignacion
                    | llamadoFunciones
+                   | estructuraArray
+                   | funcionesArreglo
                 '''
 def p_cuerpo(p):
     '''cuerpo : estructurasControl
               | estructuraSalida
               | estructuraAsignacion
               | llamadoFunciones
+              | estructuraArray
+              | funcionesArreglo
     '''
 # ----------------------------------Operadores Asignacion----------------------------------
 def p_estructuraAsignacion(p):
-  '''estructuraAsignacion : NOMBRE_VARIABLE tipoAsignacion variables
-                          | NOMBRE_VARIABLE IGUAL variablesTotales
-                          | NOMBRE_VARIABLE IGUAL estructuraComparacion
-                          Falta operaciones matematicas, llamados de funciones, arrays, hashes,
-                          leer archivos, casting, entrada de datos
+  '''estructuraAsignacion : TiposNomVariables tipoAsignacion variables
+                          | TiposNomVariables IGUAL variablesTotales
+                          | TiposNomVariables IGUAL estructuraComparacion
+                          | TiposNomVariables IGUAL estructuraArray
+                          | TiposNomVariables IGUAL estructuraAbrirArchivo
+                          Falta operaciones matematicas, llamados de funciones, hashes,
+                          , casting, entrada de datos
                 '''
 
 def p_tipoAsignacion(p):
@@ -52,6 +58,32 @@ def p_estructuraElse(p):
 
                
 # ----------------------------------Estructura de Datos-----------------------------------
+# ----------------------------------Array-----------------------------------
+
+def p_estructuraArray(p):
+  '''estructuraArray : CORCHETE_I CORCHETE_D
+                     | ARRAY PUNTO NEW
+                     | CORCHETE_I parametrosA CORCHETE_D
+                '''
+                
+def p_parametrosA(p):
+  '''parametrosA : variablesTotales
+                 | variablesTotales COMA parametrosA
+  '''
+
+def p_funcionesArreglo(p):
+  '''funcionesArreglo : TiposNomVariables PUNTO nombreFuncionesA 
+  '''
+
+def p_nombreFuncionesA(p):
+  '''nombreFuncionesA : PUSH  PAR_I variablesTotales PAR_D
+                      | DELETE PAR_I ENTERO PAR_D
+  '''  
+# ----------------------------------String-----------------------------------
+
+# ----------------------------------Hashes-----------------------------------
+
+
 # ----------------------------------Funciones-----------------------------------
 def p_estructuraFunciones(p):
   '''estructuraFunciones : DEF funcionSinAtributos END
@@ -90,11 +122,17 @@ def p_cuerpoSalida(p):
   '''
 # ----------------------------------Casting-----------------------------------
 # ----------------------------------Manejo de archivos-----------------------------------
+# ----------------------------------Leer archivos-----------------------------------
+def p_estructuraAbrirArchivo(p):
+    '''estructuraAbrirArchivo : FILE PUNTO READ  PAR_I TiposNomVariables PAR_D
+                              | FILE PUNTO READ  PAR_I CADENA PAR_D
+    '''
+# ----------------------------------Escribir archivos-----------------------------------
 
 # ----------------------------------Variables-----------------------------------
 def p_variablesTotales(p):
-    '''boleanos : variables 
-                | boleanos
+    '''variablesTotales : variables 
+                        | boleanos
     '''
 def p_variables(p):
   '''variables : CADENA
