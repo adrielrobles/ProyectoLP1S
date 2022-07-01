@@ -11,6 +11,9 @@ def p_instrucciones(p):
                    | llamadoFunciones
                    | estructuraArray
                    | funcionesArreglo
+                   | funcionesString
+                   | limpiarDatos
+                   | estructuraEscribirArchivo
                 '''
 def p_cuerpo(p):
     '''cuerpo : estructurasControl
@@ -19,6 +22,9 @@ def p_cuerpo(p):
               | llamadoFunciones
               | estructuraArray
               | funcionesArreglo
+              | funcionesString
+              | limpiarDatos
+              | estructuraEscribirArchivo
     '''
 # ----------------------------------Operadores Asignacion----------------------------------
 def p_estructuraAsignacion(p):
@@ -26,6 +32,8 @@ def p_estructuraAsignacion(p):
                           | TiposNomVariables IGUAL variablesTotales
                           | TiposNomVariables IGUAL estructuraComparacion
                           | TiposNomVariables IGUAL estructuraArray
+                          | TiposNomVariables IGUAL estructuraLeerArchivo
+                          | TiposNomVariables IGUAL estructuraEntrada
                           | TiposNomVariables IGUAL estructuraAbrirArchivo
                           Falta operaciones matematicas, llamados de funciones, hashes,
                           , casting, entrada de datos
@@ -46,12 +54,18 @@ def p_estructuraComparacion(p):
 # ----------------------------------Estructura de Control---------------------------------
 def p_estructurasControl(p):
   '''estructurasControl : estructuraIf
+                        | estructuraUntil
    '''
 
 def p_estructuraIf(p):
   '''estructuraIf : IF PAR_I estructuraComparacion PAR_D cuerpo END
                   | IF PAR_I estructuraComparacion PAR_D cuerpo estructuraElse END
                 '''
+
+def p_estructuraUntil(p):
+  '''estructuraUntil : UNTIL PAR_I estructuraComparacion PAR_D cuerpo END
+                '''
+
 def p_estructuraElse(p):
   '''estructuraElse : ELSE cuerpo
                 '''
@@ -76,11 +90,23 @@ def p_funcionesArreglo(p):
   '''
 
 def p_nombreFuncionesA(p):
-  '''nombreFuncionesA : PUSH  PAR_I variablesTotales PAR_D
+  '''nombreFuncionesA : PUSH PAR_I variablesTotales PAR_D
                       | DELETE PAR_I ENTERO PAR_D
   '''  
 # ----------------------------------String-----------------------------------
+def p_funcionesString(p):
+  '''funcionesString : TiposNomVariables PUNTO nombreFuncionesS
+                     | CADENA PUNTO nombreFuncionesS
+  '''
 
+def p_nombreFuncionesS(p):
+  '''nombreFuncionesS : INSERT PAR_I ENTERO COMA CADENA PAR_D
+                      | INSERT PAR_I ENTERO COMA TiposNomVariables PAR_D
+                      | INSERT PAR_I TiposNomVariables COMA CADENA PAR_D
+                      | INSERT PAR_I TiposNomVariables COMA TiposNomVariables PAR_D
+                      | SIZE PAR_I  PAR_D
+                      | SIZE
+  '''
 # ----------------------------------Hashes-----------------------------------
 
 
@@ -120,15 +146,31 @@ def p_cuerpoSalida(p):
   '''cuerpoSalida : variablesTotales
                   | CADENA MAS TiposNomVariables
   '''
+def p_estructuraEntrada(p):
+  '''estructuraEntrada : GETS PUNTO CHOMP
+                '''
+def p_limpiarDatos(p):
+  '''limpiarDatos : STDOUT PUNTO FLUSH
+                '''
 # ----------------------------------Casting-----------------------------------
 # ----------------------------------Manejo de archivos-----------------------------------
 # ----------------------------------Leer archivos-----------------------------------
+def p_estructuraLeerArchivo(p):
+    '''estructuraLeerArchivo : FILE PUNTO READ PAR_I TiposNomVariables PAR_D
+                              | FILE PUNTO READ PAR_I CADENA PAR_D
+    '''
+
 def p_estructuraAbrirArchivo(p):
-    '''estructuraAbrirArchivo : FILE PUNTO READ  PAR_I TiposNomVariables PAR_D
-                              | FILE PUNTO READ  PAR_I CADENA PAR_D
+    '''estructuraAbrirArchivo : FILE PUNTO OPEN PAR_I TiposNomVariables COMA MODOAPERTURA PAR_D
+                              | FILE PUNTO OPEN PAR_I CADENA COMA MODOAPERTURA PAR_D
     '''
 # ----------------------------------Escribir archivos-----------------------------------
-
+def p_estructuraEscribirArchivo(p):
+    '''estructuraEscribirArchivo : FILE PUNTO WRITE PAR_I TiposNomVariables COMA TiposNomVariables PAR_D
+                                 | FILE PUNTO WRITE PAR_I TiposNomVariables COMA CADENA PAR_D
+                                 | FILE PUNTO WRITE PAR_I CADENA COMA CADENA PAR_D
+                                 | FILE PUNTO WRITE PAR_I CADENA COMA TiposNomVariables PAR_D
+    '''
 # ----------------------------------Variables-----------------------------------
 def p_variablesTotales(p):
     '''variablesTotales : variables 
