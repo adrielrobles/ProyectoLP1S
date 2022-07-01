@@ -28,6 +28,7 @@ reservadas = {
   "to_s" :"TOSTRING", "to_i":"TOINTEGER", "to_f":"TOFLOAT",
   #manejo de archivos
   "File" : "FILE","read":"READ","write":"WRITE","open":"OPEN", "split":"SPLIT","STDOUT":"STDOUT",
+  "readlines":"READLINES",
 
   # Termina Jean Moreano
 

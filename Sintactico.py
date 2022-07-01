@@ -14,6 +14,7 @@ def p_instrucciones(p):
                    | funcionesString
                    | limpiarDatos
                    | estructuraEscribirArchivo
+                   | estructuraClase
                 '''
 def p_cuerpo(p):
     '''cuerpo : estructurasControl
@@ -29,19 +30,11 @@ def p_cuerpo(p):
   
 # ---------------------------------- FUNCIONES GENERALES -------------------------------------
 def p_valorTodos(p):
-  '''valorTodos : ENTERO
-           | FLOTANTE
-           | CADENA
-           | FALSE
-           | TRUE
-           | estructuraHash
-           | estructuraArray
+  '''valorTodos : variablesTotales
+                | estructuraHash
+                | estructuraArray
   '''
 
-def p_cuerpo(p):
-  '''cuerpo : imprimir
-            | estructuraAsignacion
-  '''
 # ----------------------------------Operadores Asignacion----------------------------------
 def p_estructuraAsignacion(p):
   '''estructuraAsignacion : TiposNomVariables tipoAsignacion variables
@@ -51,8 +44,11 @@ def p_estructuraAsignacion(p):
                           | TiposNomVariables IGUAL estructuraLeerArchivo
                           | TiposNomVariables IGUAL estructuraEntrada
                           | TiposNomVariables IGUAL estructuraAbrirArchivo
-                          | NOMBRE_VARIABLE IGUAL estructuraHash
-                          | NOMBRE_VARIABLE IGUAL operacion                          
+                          | TiposNomVariables IGUAL llamadoFunciones 
+                          | TiposNomVariables IGUAL estructuraLeerArchivoLinea                
+                          | TiposNomVariables IGUAL estructuraHash
+                          | TiposNomVariables IGUAL operacion
+                          | TiposNomVariables IGUAL structuraSplit                        
                 '''
 
 def p_tipoAsignacion(p):
@@ -66,13 +62,8 @@ def p_tipoAsignacion(p):
 
 #---------------------------------- Operacion Matematicas -------------------------------
 def p_operacion(p):
-  ''' operacion : valorMate operador valorMate
-                | valorMate operador valorMate operador operacion
-  '''
-
-def p_valorMate(p):
-  '''valorMate : ENTERO
-               | FLOTANTE
+  ''' operacion : numericos operador numericos
+                | numericos operador numericos operador operacion
   '''
 
 def p_operador(p):
@@ -85,27 +76,15 @@ def p_operador(p):
   '''
 # -------------------------------Operadores Comparacion---------------------------------
 def p_estructuraComparacion(p):
-  'estructuraComparacion : elementocomparador comparador elementocomparador'
+  'estructuraComparacion : variablesTotales comparador variablesTotales'
 
-def p_elementocomparador(p):
-  '''elementocomparador : ENTERO
-                        | FLOTANTE
-                        | NOMBRE_VARIABLE
-                        
-  '''
 def p_comparador(p):
-  '''comparador : MAS_IGUAL
-                  | RESTA_IGUAL
-                  | MULTIPLICACION_IGUAL
-                  | DIVISION_IGUAL
-                  | MODULO_IGUAL
-                  | EXPONENCIAL_IGUAL
-                  | MENOR_QUE
-                  | MAYOR_QUE
-                  | MAYOR_IGUAL
-                  | DOBLE_IGUAL
-                  | MENOR_IGUAL
-                  | NO_IGUAL
+  '''comparador : MENOR_QUE
+                | MAYOR_QUE
+                | MAYOR_IGUAL
+                | DOBLE_IGUAL
+                | MENOR_IGUAL
+                | NO_IGUAL
   '''
 # ----------------------------------Estructura de Control---------------------------------
 def p_estructurasControl(p):
@@ -246,6 +225,7 @@ def p_operadoresSalidas(p):
 def p_cuerpoSalida(p):
   '''cuerpoSalida : variablesTotales
                   | CADENA MAS TiposNomVariables
+                  | operacion
   '''
 def p_estructuraEntrada(p):
   '''estructuraEntrada : GETS PUNTO CHOMP
@@ -282,9 +262,29 @@ def p_estructuraLeerArchivo(p):
                               | FILE PUNTO READ PAR_I CADENA PAR_D
     '''
 
+def p_estructuraLeerArchivoLinea(p):
+    '''estructuraLeerArchivoLinea : FILE PUNTO READLINES PAR_I TiposNomVariables PAR_D
+                                  | FILE PUNTO READLINES PAR_I CADENA PAR_D
+    '''
 def p_estructuraAbrirArchivo(p):
     '''estructuraAbrirArchivo : FILE PUNTO OPEN PAR_I TiposNomVariables COMA MODOAPERTURA PAR_D
                               | FILE PUNTO OPEN PAR_I CADENA COMA MODOAPERTURA PAR_D
+    '''
+# ----------------------------------RECORRER ARCHIVO-----------------------------------
+
+def p_estructuraRecorrerArchivo(p):
+    '''estructuraRecorrerArchivo : variablesRecorrer PUNTO EACH DO PIPE NOMBRE_VARIABLE PIPE cuerpo END
+                                 | estructuraAbrirArchivo DO PIPE NOMBRE_VARIABLE PIPE cuerpo END
+    '''
+
+def p_estructuraSplit(p):
+    '''estructuraSplit : TiposNomVariables PUNTO SPLIT PAR_I CADENA PAR_D
+    '''
+    
+def p_variablesRecorrer(p):
+    '''variablesRecorrer : TiposNomVariables
+                         | estructuraLeerArchivoLinea
+                         | estructuraSplit
     '''
 # ----------------------------------Escribir archivos-----------------------------------
 def p_estructuraEscribirArchivo(p):
@@ -292,12 +292,14 @@ def p_estructuraEscribirArchivo(p):
                                  | FILE PUNTO WRITE PAR_I TiposNomVariables COMA CADENA PAR_D
                                  | FILE PUNTO WRITE PAR_I CADENA COMA CADENA PAR_D
                                  | FILE PUNTO WRITE PAR_I CADENA COMA TiposNomVariables PAR_D
+                                 | NOMBRE_VARIABLE PUNTO WRITE PAR_I CADENA PAR_D
     '''
 # ----------------------------------Variables-----------------------------------
 def p_variablesTotales(p):
     '''variablesTotales : variables 
                         | boleanos
     '''
+
 def p_variables(p):
   '''variables : CADENA
                | numericos
@@ -318,7 +320,9 @@ def p_numericos(p):
     '''numericos : ENTERO 
                  | FLOTANTE
     '''
-
+def p_estructuraClase(p):
+    '''estructuraClase : CLASS NOMBRE_CLASE
+    '''
 
 #Imprime errores según las reglas
 def p_error(p):
