@@ -18,7 +18,8 @@ reservadas = {
   #Termina Adriel Robles
 
   # Empieza Jean Moreano
-
+  #STRING
+  "insert":"INSERT","size":"SIZE",
   #clases
   "class" : "CLASS",
   #boolean
@@ -34,6 +35,7 @@ reservadas = {
   #OPERADORES DE COMPARACION
   "and" : "AND","or" : "OR","not" : "NOT",
   #HASHES
+  ""
   "dict" : "DICCIONARIO","push":"PUSH","delete_at":"DELETE",
   #MANEJO DE ENTRADA Y SALIDA DE DATOS
   "puts" : "PUTS",
@@ -46,7 +48,7 @@ reservadas = {
 
 tokens = ("MAS", "MENOS", "DIV", "MULTIPLICACION", "MODULO","DOBLE_IGUAL","MULTIPLICACION_IGUAL","EXPONENCIAL_IGUAL", 
           "MENOR_IGUAL","NO_IGUAL","BACKS", "MENOR_QUE", "MAYOR_IGUAL","IGUAL", "PAR_I", "PAR_D","NOMBRE_VARIABLE","VARIABLE_GLOBAL",
-           "VARIABLE_INSTANCIA","VARIABLE_CLASE","NOMBRE_CLASE", "DIVISION_IGUAL","RESTA_IGUAL","MODULO_IGUAL", "ENTERO","FLOTANTE","CADENA",
+           "VARIABLE_INSTANCIA","VARIABLE_CLASE","NOMBRE_CLASE", "DIVISION_IGUAL","RESTA_IGUAL","MODULO_IGUAL", "ENTERO","FLOTANTE","CADENA","MODOAPERTURA",
           "CORCHETE_D","CORCHETE_I","ASIGNACION","PIPE","POTENCIA","LLAVE_I","INTERVALO","LLAVE_D","NOMBRE_FUNCION","PUNTO","MAS_IGUAL","COMA","MAYOR_QUE") + tuple(reservadas.values())
 
 #Definir expresiones regulares
@@ -89,6 +91,7 @@ t_PUNTO=r'\.'
 t_COMA=r'\,'
 t_INTERVALO=r'\.\.'
 t_PIPE=r'\|'
+t_MODOAPERTURA=r'\"[a-z]\"'
 # termina Darinka Townsend
 # empieza Jean Moreano
 
