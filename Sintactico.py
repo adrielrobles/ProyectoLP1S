@@ -20,6 +20,22 @@ def p_cuerpo(p):
               | estructuraArray
               | funcionesArreglo
     '''
+  
+# ---------------------------------- FUNCIONES GENERALES -------------------------------------
+def p_valorTodos(p):
+  '''valorTodos : ENTERO
+           | FLOTANTE
+           | CADENA
+           | FALSE
+           | TRUE
+           | estructuraHash
+           | estructuraArray
+  '''
+
+def p_cuerpo(p):
+  '''cuerpo : imprimir
+            | estructuraAsignacion
+  '''
 # ----------------------------------Operadores Asignacion----------------------------------
 def p_estructuraAsignacion(p):
   '''estructuraAsignacion : TiposNomVariables tipoAsignacion variables
@@ -27,8 +43,8 @@ def p_estructuraAsignacion(p):
                           | TiposNomVariables IGUAL estructuraComparacion
                           | TiposNomVariables IGUAL estructuraArray
                           | TiposNomVariables IGUAL estructuraAbrirArchivo
-                          Falta operaciones matematicas, llamados de funciones, hashes,
-                          , casting, entrada de datos
+                          | NOMBRE_VARIABLE IGUAL estructuraHash
+                          | NOMBRE_VARIABLE IGUAL operacion                          
                 '''
 
 def p_tipoAsignacion(p):
@@ -39,13 +55,54 @@ def p_tipoAsignacion(p):
                     | MODULO_IGUAL
                     | EXPONENCIAL_IGUAL
                 '''
-# ----------------------------------Operadores Comparacion---------------------------------
+
+#---------------------------------- Operacion Matematicas -------------------------------
+def p_operacion(p):
+  ''' operacion : valorMate operador valorMate
+                | valorMate operador valorMate operador operacion
+  '''
+
+def p_valorMate(p):
+  '''valorMate : ENTERO
+               | FLOTANTE
+  '''
+
+def p_operador(p):
+  '''operador : MAS
+              | MENOS
+              | MULTIPLICACION
+              | POTENCIA
+              | DIV
+              | MODULO
+  '''
+# -------------------------------Operadores Comparacion---------------------------------
 def p_estructuraComparacion(p):
-  '''estructuraComparacion : 
-                '''
+  'estructuraComparacion : elementocomparador comparador elementocomparador'
+
+def p_elementocomparador(p):
+  '''elementocomparador : ENTERO
+                        | FLOTANTE
+                        | NOMBRE_VARIABLE
+                        
+  '''
+def p_comparador(p):
+  '''comparador : MAS_IGUAL
+                  | RESTA_IGUAL
+                  | MULTIPLICACION_IGUAL
+                  | DIVISION_IGUAL
+                  | MODULO_IGUAL
+                  | EXPONENCIAL_IGUAL
+                  | MENOR_QUE
+                  | MAYOR_QUE
+                  | MAYOR_IGUAL
+                  | DOBLE_IGUAL
+                  | MENOR_IGUAL
+                  | NO_IGUAL
+  '''
 # ----------------------------------Estructura de Control---------------------------------
 def p_estructurasControl(p):
   '''estructurasControl : estructuraIf
+                        | estructuraCase
    '''
 
 def p_estructuraIf(p):
@@ -56,7 +113,31 @@ def p_estructuraElse(p):
   '''estructuraElse : ELSE cuerpo
                 '''
 
-               
+def p_estructuraCase(p):
+  'estructuraCase: CASE NOMBRE_VARIABLE SALTO_LINEA estructuraWhenI END'
+
+def p_estructuraWhenI(p):
+  '''estructuraWhenI: estructuraWhen estructuraElse
+  '''
+
+def p_estructuraWhen(p):
+  '''estructuraWhen: WHEN sentenciaWhen SALTO_LINEA cuerpo
+                   | estructuraWhen SALTO_LINEA WHEN sentenciaWhen SALTO_LINEA cuerpo
+  '''
+
+def p_sentenciaWhen(p):
+  ''' sentenciaWhen : estructuraComparacion
+                    | intervaloW
+  '''
+
+def p_intervaloW(p):
+  'intervaloW : ENTERO INTERVALO ENTERO '
+
+
+def p_cuerpo(p):
+  '''cuerpo : imprimir
+            | estructuraAsignacion
+  '''
 # ----------------------------------Estructura de Datos-----------------------------------
 # ----------------------------------Array-----------------------------------
 
@@ -83,11 +164,21 @@ def p_nombreFuncionesA(p):
 
 # ----------------------------------Hashes-----------------------------------
 
+def p_estructuraHash(p):
+  'estructuraHash : LLAVE_I cuerpoH LLAVE_D'
+
+def p_cuerpoH(p):
+  '''cuerpoH : CADENA ASIGNACION valorTodos
+             | cuerpoH COMA CADENA ASIGNACION valorTodos
+  '''
+
+
 
 # ----------------------------------Funciones-----------------------------------
 def p_estructuraFunciones(p):
   '''estructuraFunciones : DEF funcionSinAtributos END
                          | DEF funcionConAtributos END
+                         | DEF funcionConDefectos END
   '''
   
 def p_funcionSinAtributos(p):
@@ -106,6 +197,16 @@ def p_llamadoFunciones(p):
   '''llamadoFunciones : NOMBRE_FUNCION PAR_I PAR_D 
                       | NOMBRE_FUNCION PAR_I parametrosFunciones PAR_D
   '''
+
+def p_funcionConDefectos(p):
+  'funcionConDefectos : NOMBRE_FUNCION PAR_I parametrosFuncionesDefecto PAR_D cuerpo'
+
+def p_parametrosFuncionesDefecto(p):
+  '''parametrosFuncionesDefecto : NOMBRE_VARIABLE IGUAL valorF
+                                | NOMBRE_VARIABLE IGUAL valorF COMA parametrosFuncionesDefecto 
+                                
+  '''
+
 # ----------------------------------Entrada y salida de Datos-----------------------------------
 def p_estructuraSalida(p):
   '''estructuraSalida : operadoresSalidas cuerpoSalida
@@ -121,6 +222,27 @@ def p_cuerpoSalida(p):
                   | CADENA MAS TiposNomVariables
   '''
 # ----------------------------------Casting-----------------------------------
+
+def p_castingString(p):
+  ''' castingString : ENTERO PUNTO TOSTRING
+                    | FLOTANTE PUNTO TOSTRING
+                    | STRING PAR_I ENTERO PAR_D
+                    | STRING PAR_I FLOTANTE PAR_D
+  '''
+
+def p_castingInteger(p):
+  ''' castingString : CADENA PUNTO TOINTEGER
+                    | FLOTANTE PUNTO TOINTEGER
+                    | INTEGER PAR_I CADENA PAR_D
+                    | INTEGER PAR_I FLOTANTE PAR_D
+  '''
+
+def p_castingFloat(p):
+  ''' castingString : ENTERO PUNTO TOFLOAT
+                    | CADENA PUNTO TOFLOAT
+                    | FLOAT PAR_I ENTERO PAR_D
+                    | FLOAT PAR_I CADENA PAR_D
+  '''
 # ----------------------------------Manejo de archivos-----------------------------------
 # ----------------------------------Leer archivos-----------------------------------
 def p_estructuraAbrirArchivo(p):
@@ -138,7 +260,7 @@ def p_variables(p):
   '''variables : CADENA
                | numericos
                | TiposNomVariables
-                '''
+  '''
 
 def p_tiposNomVariables(p):
   '''tiposNomVariables : NOMBRE_VARIABLE
