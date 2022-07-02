@@ -161,24 +161,25 @@ def t_error(t):
     print(f"Caracter no reconocido {t.value[0]} en línea {t.lineno}")
     t.lexer.skip(1)
   
-validador = lexico.lex()
 
-def getTokens(lexer):
-    while True:
-        tok = lexer.token()
-        if not tok:
-            break 
-        print(tok)
+#validador = lexico.lex()
+
+#def getTokens(lexer):
+#    while True:
+#        tok = lexer.token()
+#        if not tok:
+#            break 
+#        print(tok)
 
 
 print("Analisis terminado... :)")
 
 
-linea=" "
-codigo = open("prueba.rb",encoding="utf8")
-for linea in codigo:
-  validador.input(linea)
-  getTokens(validador)
-codigo.close()
+#linea=" "
+#codigo = open("prueba.rb",encoding="utf8")
+#for linea in codigo:
+#  validador.input(linea)
+#  getTokens(validador)
+#codigo.close()
 
 #termina Adriel Robles

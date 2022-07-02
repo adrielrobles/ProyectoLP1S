@@ -107,14 +107,14 @@ def p_estructuraElse(p):
                 '''
 
 def p_estructuraCase(p):
-  'estructuraCase: CASE NOMBRE_VARIABLE SALTO_LINEA estructuraWhenI END'
+  'estructuraCase : CASE NOMBRE_VARIABLE SALTO_LINEA estructuraWhenI END'
 
 def p_estructuraWhenI(p):
-  '''estructuraWhenI: estructuraWhen estructuraElse
+  '''estructuraWhenI : estructuraWhen estructuraElse
   '''
 
 def p_estructuraWhen(p):
-  '''estructuraWhen: WHEN sentenciaWhen SALTO_LINEA cuerpo
+  '''estructuraWhen : WHEN sentenciaWhen SALTO_LINEA cuerpo
                    | estructuraWhen SALTO_LINEA WHEN sentenciaWhen SALTO_LINEA cuerpo
   '''
 
