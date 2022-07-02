@@ -129,58 +129,63 @@ Rule 91    llamadoFunciones -> NOMBRE_FUNCION PAR_I parametrosFunciones PAR_D
 Rule 92    funcionConDefectos -> NOMBRE_FUNCION PAR_I parametrosFuncionesDefecto PAR_D cuerpo
 Rule 93    parametrosFuncionesDefecto -> NOMBRE_VARIABLE IGUAL valorF
 Rule 94    parametrosFuncionesDefecto -> NOMBRE_VARIABLE IGUAL valorF COMA parametrosFuncionesDefecto
-Rule 95    estructuraSalida -> operadoresSalidas cuerpoSalida
-Rule 96    estructuraSalida -> operadoresSalidas PAR_I cuerpoSalida PAR_D
-Rule 97    operadoresSalidas -> PUTS
-Rule 98    operadoresSalidas -> PRINT
-Rule 99    cuerpoSalida -> variablesTotales
-Rule 100   cuerpoSalida -> CADENA MAS TiposNomVariables
-Rule 101   cuerpoSalida -> operacion
-Rule 102   estructuraEntrada -> GETS PUNTO CHOMP
-Rule 103   limpiarDatos -> STDOUT PUNTO FLUSH
-Rule 104   castingString -> ENTERO PUNTO TOSTRING
-Rule 105   castingString -> FLOTANTE PUNTO TOSTRING
-Rule 106   castingString -> STRING PAR_I ENTERO PAR_D
-Rule 107   castingString -> STRING PAR_I FLOTANTE PAR_D
-Rule 108   castingString -> CADENA PUNTO TOINTEGER
-Rule 109   castingString -> FLOTANTE PUNTO TOINTEGER
-Rule 110   castingString -> INTEGER PAR_I CADENA PAR_D
-Rule 111   castingString -> INTEGER PAR_I FLOTANTE PAR_D
-Rule 112   castingString -> ENTERO PUNTO TOFLOAT
-Rule 113   castingString -> CADENA PUNTO TOFLOAT
-Rule 114   castingString -> FLOAT PAR_I ENTERO PAR_D
-Rule 115   castingString -> FLOAT PAR_I CADENA PAR_D
-Rule 116   estructuraLeerArchivo -> FILE PUNTO READ PAR_I TiposNomVariables PAR_D
-Rule 117   estructuraLeerArchivo -> FILE PUNTO READ PAR_I CADENA PAR_D
-Rule 118   estructuraLeerArchivoLinea -> FILE PUNTO READLINES PAR_I TiposNomVariables PAR_D
-Rule 119   estructuraLeerArchivoLinea -> FILE PUNTO READLINES PAR_I CADENA PAR_D
-Rule 120   estructuraAbrirArchivo -> FILE PUNTO OPEN PAR_I TiposNomVariables COMA MODOAPERTURA PAR_D
-Rule 121   estructuraAbrirArchivo -> FILE PUNTO OPEN PAR_I CADENA COMA MODOAPERTURA PAR_D
-Rule 122   estructuraRecorrerArchivo -> variablesRecorrer PUNTO EACH DO PIPE NOMBRE_VARIABLE PIPE cuerpo END
-Rule 123   estructuraRecorrerArchivo -> estructuraAbrirArchivo DO PIPE NOMBRE_VARIABLE PIPE cuerpo END
-Rule 124   estructuraSplit -> TiposNomVariables PUNTO SPLIT PAR_I CADENA PAR_D
-Rule 125   variablesRecorrer -> TiposNomVariables
-Rule 126   variablesRecorrer -> estructuraLeerArchivoLinea
-Rule 127   variablesRecorrer -> estructuraSplit
-Rule 128   estructuraEscribirArchivo -> FILE PUNTO WRITE PAR_I TiposNomVariables COMA TiposNomVariables PAR_D
-Rule 129   estructuraEscribirArchivo -> FILE PUNTO WRITE PAR_I TiposNomVariables COMA CADENA PAR_D
-Rule 130   estructuraEscribirArchivo -> FILE PUNTO WRITE PAR_I CADENA COMA CADENA PAR_D
-Rule 131   estructuraEscribirArchivo -> FILE PUNTO WRITE PAR_I CADENA COMA TiposNomVariables PAR_D
-Rule 132   estructuraEscribirArchivo -> NOMBRE_VARIABLE PUNTO WRITE PAR_I CADENA PAR_D
-Rule 133   variablesTotales -> variables
-Rule 134   variablesTotales -> boleanos
-Rule 135   variables -> CADENA
-Rule 136   variables -> numericos
-Rule 137   variables -> TiposNomVariables
-Rule 138   tiposNomVariables -> NOMBRE_VARIABLE
-Rule 139   tiposNomVariables -> VARIABLE_GLOBAL
-Rule 140   tiposNomVariables -> VARIABLE_INSTANCIA
-Rule 141   tiposNomVariables -> VARIABLE_CLASE
-Rule 142   boleanos -> TRUE
-Rule 143   boleanos -> FALSE
-Rule 144   numericos -> ENTERO
-Rule 145   numericos -> FLOTANTE
-Rule 146   estructuraClase -> CLASS NOMBRE_CLASE
+Rule 95    valorF -> ENTERO
+Rule 96    valorF -> FLOTANTE
+Rule 97    valorF -> CADENA
+Rule 98    valorF -> TRUE
+Rule 99    valorF -> FALSE
+Rule 100   estructuraSalida -> operadoresSalidas cuerpoSalida
+Rule 101   estructuraSalida -> operadoresSalidas PAR_I cuerpoSalida PAR_D
+Rule 102   operadoresSalidas -> PUTS
+Rule 103   operadoresSalidas -> PRINT
+Rule 104   cuerpoSalida -> variablesTotales
+Rule 105   cuerpoSalida -> CADENA MAS TiposNomVariables
+Rule 106   cuerpoSalida -> operacion
+Rule 107   estructuraEntrada -> GETS PUNTO CHOMP
+Rule 108   limpiarDatos -> STDOUT PUNTO FLUSH
+Rule 109   castingString -> ENTERO PUNTO TOSTRING
+Rule 110   castingString -> FLOTANTE PUNTO TOSTRING
+Rule 111   castingString -> STRING PAR_I ENTERO PAR_D
+Rule 112   castingString -> STRING PAR_I FLOTANTE PAR_D
+Rule 113   castingString -> CADENA PUNTO TOINTEGER
+Rule 114   castingString -> FLOTANTE PUNTO TOINTEGER
+Rule 115   castingString -> INTEGER PAR_I CADENA PAR_D
+Rule 116   castingString -> INTEGER PAR_I FLOTANTE PAR_D
+Rule 117   castingString -> ENTERO PUNTO TOFLOAT
+Rule 118   castingString -> CADENA PUNTO TOFLOAT
+Rule 119   castingString -> FLOAT PAR_I ENTERO PAR_D
+Rule 120   castingString -> FLOAT PAR_I CADENA PAR_D
+Rule 121   estructuraLeerArchivo -> FILE PUNTO READ PAR_I TiposNomVariables PAR_D
+Rule 122   estructuraLeerArchivo -> FILE PUNTO READ PAR_I CADENA PAR_D
+Rule 123   estructuraLeerArchivoLinea -> FILE PUNTO READLINES PAR_I TiposNomVariables PAR_D
+Rule 124   estructuraLeerArchivoLinea -> FILE PUNTO READLINES PAR_I CADENA PAR_D
+Rule 125   estructuraAbrirArchivo -> FILE PUNTO OPEN PAR_I TiposNomVariables COMA MODOAPERTURA PAR_D
+Rule 126   estructuraAbrirArchivo -> FILE PUNTO OPEN PAR_I CADENA COMA MODOAPERTURA PAR_D
+Rule 127   estructuraRecorrerArchivo -> variablesRecorrer PUNTO EACH DO PIPE NOMBRE_VARIABLE PIPE cuerpo END
+Rule 128   estructuraRecorrerArchivo -> estructuraAbrirArchivo DO PIPE NOMBRE_VARIABLE PIPE cuerpo END
+Rule 129   estructuraSplit -> TiposNomVariables PUNTO SPLIT PAR_I CADENA PAR_D
+Rule 130   variablesRecorrer -> TiposNomVariables
+Rule 131   variablesRecorrer -> estructuraLeerArchivoLinea
+Rule 132   variablesRecorrer -> estructuraSplit
+Rule 133   estructuraEscribirArchivo -> FILE PUNTO WRITE PAR_I TiposNomVariables COMA TiposNomVariables PAR_D
+Rule 134   estructuraEscribirArchivo -> FILE PUNTO WRITE PAR_I TiposNomVariables COMA CADENA PAR_D
+Rule 135   estructuraEscribirArchivo -> FILE PUNTO WRITE PAR_I CADENA COMA CADENA PAR_D
+Rule 136   estructuraEscribirArchivo -> FILE PUNTO WRITE PAR_I CADENA COMA TiposNomVariables PAR_D
+Rule 137   estructuraEscribirArchivo -> NOMBRE_VARIABLE PUNTO WRITE PAR_I CADENA PAR_D
+Rule 138   variablesTotales -> variables
+Rule 139   variablesTotales -> boleanos
+Rule 140   variables -> CADENA
+Rule 141   variables -> numericos
+Rule 142   variables -> TiposNomVariables
+Rule 143   tiposNomVariables -> NOMBRE_VARIABLE
+Rule 144   tiposNomVariables -> VARIABLE_GLOBAL
+Rule 145   tiposNomVariables -> VARIABLE_INSTANCIA
+Rule 146   tiposNomVariables -> VARIABLE_CLASE
+Rule 147   boleanos -> TRUE
+Rule 148   boleanos -> FALSE
+Rule 149   numericos -> ENTERO
+Rule 150   numericos -> FLOTANTE
+Rule 151   estructuraClase -> CLASS NOMBRE_CLASE
 
 Terminals, with rules where they appear
 
@@ -190,11 +195,11 @@ ARRAY                : 65
 ASIGNACION           : 81 82
 BACKS                : 
 BREAK                : 
-CADENA               : 73 74 76 81 82 100 108 110 113 115 117 119 121 124 129 130 130 131 132 135
+CADENA               : 73 74 76 81 82 97 105 113 115 118 120 122 124 126 129 134 135 135 136 137 140
 CASE                 : 55
-CHOMP                : 102
-CLASS                : 146
-COMA                 : 68 74 75 76 77 82 89 94 120 121 128 129 130 131
+CHOMP                : 107
+CLASS                : 151
+COMA                 : 68 74 75 76 77 82 89 94 125 126 133 134 135 136
 CORCHETE_D           : 64 66
 CORCHETE_I           : 64 66
 DEF                  : 83 84 85
@@ -203,39 +208,39 @@ DELETE               : 71
 DICCIONARIO          : 
 DIV                  : 39
 DIVISION_IGUAL       : 30
-DO                   : 122 123
+DO                   : 127 128
 DOBLE_IGUAL          : 45
-EACH                 : 122
+EACH                 : 127
 ELSE                 : 54
 ELSEIF               : 
-END                  : 51 52 53 55 83 84 85 122 123
+END                  : 51 52 53 55 83 84 85 127 128
 ENSURE               : 
-ENTERO               : 61 61 71 74 75 104 106 112 114 144
+ENTERO               : 61 61 71 74 75 95 109 111 117 119 149
 EXPONENCIAL_IGUAL    : 32
-FALSE                : 143
-FILE                 : 116 117 118 119 120 121 128 129 130 131
-FLOAT                : 114 115
-FLOTANTE             : 105 107 109 111 145
-FLUSH                : 103
+FALSE                : 99 148
+FILE                 : 121 122 123 124 125 126 133 134 135 136
+FLOAT                : 119 120
+FLOTANTE             : 96 110 112 114 116 150
+FLUSH                : 108
 FOR                  : 
-GETS                 : 102
+GETS                 : 107
 IF                   : 51 52
 IGUAL                : 16 17 18 19 20 21 22 23 24 25 26 93 94
 IN                   : 
 INSERT               : 74 75 76 77
-INTEGER              : 110 111
+INTEGER              : 115 116
 INTERVALO            : 61
 LINE                 : 
 LLAVE_D              : 80
 LLAVE_I              : 80
-MAS                  : 35 100
+MAS                  : 35 105
 MAS_IGUAL            : 27
 MAYOR_IGUAL          : 44
 MAYOR_QUE            : 43
 MENOR_IGUAL          : 46
 MENOR_QUE            : 42
 MENOS                : 36
-MODOAPERTURA         : 120 121
+MODOAPERTURA         : 125 126
 MODULE               : 
 MODULO               : 40
 MODULO_IGUAL         : 31
@@ -244,23 +249,23 @@ MULTIPLICACION_IGUAL : 29
 NEW                  : 65
 NEXT                 : 
 NIL                  : 
-NOMBRE_CLASE         : 146
+NOMBRE_CLASE         : 151
 NOMBRE_FUNCION       : 86 87 90 91 92
-NOMBRE_VARIABLE      : 55 93 94 122 123 132 138
+NOMBRE_VARIABLE      : 55 93 94 127 128 137 143
 NOT                  : 
 NO_IGUAL             : 47
-OPEN                 : 120 121
+OPEN                 : 125 126
 OR                   : 
-PAR_D                : 51 52 53 70 71 74 75 76 77 78 86 87 90 91 92 96 106 107 110 111 114 115 116 117 118 119 120 121 124 128 129 130 131 132
-PAR_I                : 51 52 53 70 71 74 75 76 77 78 86 87 90 91 92 96 106 107 110 111 114 115 116 117 118 119 120 121 124 128 129 130 131 132
-PIPE                 : 122 122 123 123
+PAR_D                : 51 52 53 70 71 74 75 76 77 78 86 87 90 91 92 101 111 112 115 116 119 120 121 122 123 124 125 126 129 133 134 135 136 137
+PAR_I                : 51 52 53 70 71 74 75 76 77 78 86 87 90 91 92 101 111 112 115 116 119 120 121 122 123 124 125 126 129 133 134 135 136 137
+PIPE                 : 127 127 128 128
 POTENCIA             : 38
-PRINT                : 98
-PUNTO                : 65 69 72 73 102 103 104 105 108 109 112 113 116 117 118 119 120 121 122 124 128 129 130 131 132
+PRINT                : 103
+PUNTO                : 65 69 72 73 107 108 109 110 113 114 117 118 121 122 123 124 125 126 127 129 133 134 135 136 137
 PUSH                 : 70
-PUTS                 : 97
-READ                 : 116 117
-READLINES            : 118 119
+PUTS                 : 102
+READ                 : 121 122
+READLINES            : 123 124
 REDO                 : 
 RESCUE               : 
 RESTA_IGUAL          : 28
@@ -269,39 +274,39 @@ RETURN               :
 SALTO_LINEA          : 55 57 58 58
 SELF                 : 
 SIZE                 : 78 79
-SPLIT                : 124
-STDOUT               : 103
-STRING               : 106 107
+SPLIT                : 129
+STDOUT               : 108
+STRING               : 111 112
 SUPER                : 
 THEN                 : 
-TOFLOAT              : 112 113
-TOINTEGER            : 108 109
-TOSTRING             : 104 105
-TRUE                 : 142
+TOFLOAT              : 117 118
+TOINTEGER            : 113 114
+TOSTRING             : 109 110
+TRUE                 : 98 147
 UNDEF                : 
 UNLEES               : 
 UNTIL                : 53
 VAL                  : 
-VARIABLE_CLASE       : 141
-VARIABLE_GLOBAL      : 139
-VARIABLE_INSTANCIA   : 140
+VARIABLE_CLASE       : 146
+VARIABLE_GLOBAL      : 144
+VARIABLE_INSTANCIA   : 145
 VFILE                : 
 WHEN                 : 57 58
 WHILE                : 
-WRITE                : 128 129 130 131 132
+WRITE                : 133 134 135 136 137
 YIELD                : 
 error                : 
 
 Nonterminals, with rules where they appear
 
-TiposNomVariables    : 15 16 17 18 19 20 21 22 23 24 25 26 69 72 75 76 77 77 88 89 100 116 118 120 124 125 128 128 129 131 137
-boleanos             : 134
+TiposNomVariables    : 15 16 17 18 19 20 21 22 23 24 25 26 69 72 75 76 77 77 88 89 105 121 123 125 129 130 133 133 134 136 142
+boleanos             : 139
 castingString        : 
 comparador           : 41
-cuerpo               : 51 52 53 54 57 58 86 87 92 122 123
+cuerpo               : 51 52 53 54 57 58 86 87 92 127 128
 cuerpoH              : 80 82
-cuerpoSalida         : 95 96
-estructuraAbrirArchivo : 21 123
+cuerpoSalida         : 100 101
+estructuraAbrirArchivo : 21 128
 estructuraArray      : 6 14 18
 estructuraAsignacion : 4 63
 estructuraCase       : 50
@@ -314,10 +319,10 @@ estructuraFunciones  : 2
 estructuraHash       : 13 24
 estructuraIf         : 48
 estructuraLeerArchivo : 19
-estructuraLeerArchivoLinea : 23 126
+estructuraLeerArchivoLinea : 23 131
 estructuraRecorrerArchivo : 
 estructuraSalida     : 3
-estructuraSplit      : 127
+estructuraSplit      : 132
 estructuraUntil      : 49
 estructuraWhen       : 56 58
 estructuraWhenI      : 55
@@ -334,10 +339,10 @@ limpiarDatos         : 9
 llamadoFunciones     : 5 22
 nombreFuncionesA     : 69
 nombreFuncionesS     : 72 73
-numericos            : 33 33 34 34 136
-operacion            : 25 34 101
+numericos            : 33 33 34 34 141
+operacion            : 25 34 106
 operador             : 33 34 34
-operadoresSalidas    : 95 96
+operadoresSalidas    : 100 101
 parametrosA          : 66 68
 parametrosFunciones  : 87 89 91
 parametrosFuncionesDefecto : 92 94
@@ -347,7 +352,7 @@ tipoAsignacion       : 15
 tiposNomVariables    : 
 valorF               : 93 94
 valorTodos           : 81 82
-variables            : 15 133
-variablesRecorrer    : 122
-variablesTotales     : 12 16 41 41 67 68 70 99
+variables            : 15 138
+variablesRecorrer    : 127
+variablesTotales     : 12 16 41 41 67 68 70 104
 

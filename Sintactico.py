@@ -60,6 +60,7 @@ def p_tipoAsignacion(p):
                     | EXPONENCIAL_IGUAL
                 '''
 
+
 #---------------------------------- Operacion Matematicas -------------------------------
 def p_operacion(p):
   ''' operacion : numericos operador numericos
@@ -212,6 +213,14 @@ def p_parametrosFuncionesDefecto(p):
                                 
   '''
 
+def p_valorF(p):
+  '''valorF : ENTERO
+            | FLOTANTE
+            | CADENA
+            | TRUE
+            | FALSE
+  '''
+
 # ----------------------------------Entrada y salida de Datos-----------------------------------
 def p_estructuraSalida(p):
   '''estructuraSalida : operadoresSalidas cuerpoSalida
@@ -278,8 +287,7 @@ def p_estructuraRecorrerArchivo(p):
     '''
 
 def p_estructuraSplit(p):
-    '''estructuraSplit : TiposNomVariables PUNTO SPLIT PAR_I CADENA PAR_D
-    '''
+    'estructuraSplit : TiposNomVariables PUNTO SPLIT PAR_I CADENA PAR_D'
     
 def p_variablesRecorrer(p):
     '''variablesRecorrer : TiposNomVariables
@@ -306,7 +314,8 @@ def p_variables(p):
                | TiposNomVariables
   '''
 
-def p_tiposNomVariables(p):
+
+def p_TiposNomVariables(p):
   '''tiposNomVariables : NOMBRE_VARIABLE
                        | VARIABLE_GLOBAL
                        | VARIABLE_INSTANCIA
