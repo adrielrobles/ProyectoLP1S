@@ -48,7 +48,7 @@ def p_estructuraAsignacion(p):
                           | TiposNomVariables IGUAL estructuraLeerArchivoLinea                
                           | TiposNomVariables IGUAL estructuraHash
                           | TiposNomVariables IGUAL operacion
-                          | TiposNomVariables IGUAL structuraSplit                        
+                          | TiposNomVariables IGUAL estructuraSplit                        
                 '''
 
 def p_tipoAsignacion(p):
@@ -127,11 +127,6 @@ def p_sentenciaWhen(p):
 def p_intervaloW(p):
   'intervaloW : ENTERO INTERVALO ENTERO '
 
-
-def p_cuerpo(p):
-  '''cuerpo : imprimir
-            | estructuraAsignacion
-  '''
 # ----------------------------------Estructura de Datos-----------------------------------
 # ----------------------------------Array-----------------------------------
 
@@ -316,7 +311,7 @@ def p_variables(p):
 
 
 def p_TiposNomVariables(p):
-  '''tiposNomVariables : NOMBRE_VARIABLE
+  '''TiposNomVariables : NOMBRE_VARIABLE
                        | VARIABLE_GLOBAL
                        | VARIABLE_INSTANCIA
                        | VARIABLE_CLASE '''
