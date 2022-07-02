@@ -36,8 +36,7 @@ reservadas = {
   #OPERADORES DE COMPARACION
   "and" : "AND","or" : "OR","not" : "NOT",
   #HASHES
-  ""
-  "dict" : "DICCIONARIO","push":"PUSH","delete_at":"DELETE",
+  "dict" : "DICCIONARIO","push" : "PUSH","delete_at" : "DELETE",
   #MANEJO DE ENTRADA Y SALIDA DE DATOS
   "puts" : "PUTS",
   "gets" : "GETS",
@@ -47,10 +46,10 @@ reservadas = {
   #termina Darinka Townsend
 }
 
-tokens = ("MAS", "MENOS", "DIV", "MULTIPLICACION", "MODULO","DOBLE_IGUAL","MULTIPLICACION_IGUAL","EXPONENCIAL_IGUAL", 
+tokens = ["MAS", "MENOS", "DIV", "MULTIPLICACION", "MODULO","DOBLE_IGUAL","MULTIPLICACION_IGUAL","EXPONENCIAL_IGUAL", 
           "MENOR_IGUAL","NO_IGUAL","BACKS", "MENOR_QUE", "MAYOR_IGUAL","IGUAL", "PAR_I", "PAR_D","NOMBRE_VARIABLE","VARIABLE_GLOBAL",
            "VARIABLE_INSTANCIA","VARIABLE_CLASE","NOMBRE_CLASE", "DIVISION_IGUAL","RESTA_IGUAL","MODULO_IGUAL", "ENTERO","FLOTANTE","CADENA",
-          "CORCHETE_D","CORCHETE_I","ASIGNACION","SALTO_LINEA","PIPE","POTENCIA","LLAVE_I","INTERVALO","LLAVE_D","NOMBRE_FUNCION","PUNTO","MAS_IGUAL","COMA","MAYOR_QUE","MODOAPERTURA") + tuple(reservadas.values())
+          "CORCHETE_D","CORCHETE_I","ASIGNACION","PIPE","POTENCIA","LLAVE_I","INTERVALO","LLAVE_D","NOMBRE_FUNCION","PUNTO","MAS_IGUAL","COMA","MAYOR_QUE","MODOAPERTURA"] +list(reservadas.values())
 
 #Definir expresiones regulares
 #Empieza Darinka Townsend
@@ -59,7 +58,7 @@ t_MAS = r'\+'
 t_MENOS = r'-'
 t_MULTIPLICACION= r'\*'
 t_POTENCIA=r'\*\*'
-t_DIV= r'/'
+t_DIV= r'\/'
 t_MODULO = r'%'
 t_MAS_IGUAL=r'\+='
 t_MULTIPLICACION_IGUAL = r'\*='
@@ -82,7 +81,7 @@ t_DOBLE_IGUAL= r'=='
 t_MENOR_IGUAL = r'<='
 t_NO_IGUAL = r'!='
 t_ignore = " \t"
-t_SALTO_LINEA = "\n"
+t_ignore_COMMENT = r'\#.'
 
 
 #caractere especiales
@@ -129,6 +128,7 @@ def t_VARIABLE_CLASE(t):
   r'\@@[a-zA-Z0-9_]*'
   t.type = reservadas.get(t.value,"VARIABLE_CLASE")
   return t
+
 def t_COMENTARIO(t):
   r'\#.*'
 
@@ -162,24 +162,24 @@ def t_error(t):
     t.lexer.skip(1)
   
 
-#validador = lexico.lex()
-
-#def getTokens(lexer):
-#    while True:
-#        tok = lexer.token()
-#        if not tok:
-#            break 
-#        print(tok)
+validador = lexico.lex()
+'''
+def getTokens(lexer):
+    while True:
+        tok = lexer.token()
+        if not tok:
+            break 
+        print(tok)
 
 
 print("Analisis terminado... :)")
 
 
-#linea=" "
-#codigo = open("prueba.rb",encoding="utf8")
-#for linea in codigo:
-#  validador.input(linea)
-#  getTokens(validador)
-#codigo.close()
-
+linea=" "
+codigo = open("prueba.rb",encoding="utf8")
+for linea in codigo:
+  validador.input(linea)
+  getTokens(validador)
+codigo.close()
+'''
 #termina Adriel Robles

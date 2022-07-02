@@ -4,52 +4,93 @@ import ply.yacc as yacc
 from ProyectoLP import tokens
 
 def p_instrucciones(p):
-  '''instrucciones : estructurasControl
-                   | estructuraFunciones
-                   | estructuraSalida
+  '''instrucciones : variablesTotales
                    | estructuraAsignacion
-                   | llamadoFunciones
+                   | estructuraComparacion
+                   | estructurasControl
                    | estructuraArray
                    | funcionesArreglo
                    | funcionesString
+                   | estructuraHash
+                   | estructuraFunciones
+                   | operacion
+                   | estructuraCasting
+                   | estructuraSalida
+                   | estructuraEntrada
                    | limpiarDatos
                    | estructuraEscribirArchivo
-                   | estructuraClase
                 '''
 def p_cuerpo(p):
-    '''cuerpo : estructurasControl
-              | estructuraSalida
+    '''cuerpo : variablesTotales
               | estructuraAsignacion
-              | llamadoFunciones
+              | estructuraComparacion
+              | estructurasControl
               | estructuraArray
               | funcionesArreglo
               | funcionesString
+              | estructuraHash
+              | estructuraFunciones
+              | llamadoFunciones
+              | operacion
+              | estructuraCasting
+              | estructuraSalida
+              | estructuraEntrada
               | limpiarDatos
               | estructuraEscribirArchivo
     '''
-  
-# ---------------------------------- FUNCIONES GENERALES -------------------------------------
+
+# ----------------------------------Variables-----------------------------------
+def p_variablesTotales(p):
+    '''variablesTotales : variables 
+                        | boleanos
+    '''
+
+def p_variables(p):
+  '''variables : CADENA
+               | numericos
+               | TiposNomVariables
+  '''
+
+
+def p_TiposNomVariables(p):
+  '''TiposNomVariables : NOMBRE_VARIABLE
+                       | VARIABLE_GLOBAL
+                       | VARIABLE_INSTANCIA
+                       | VARIABLE_CLASE '''
+
+def p_boleanos(p):
+    '''boleanos : TRUE 
+                | FALSE
+    '''
+
+def p_numericos(p):
+    '''numericos : ENTERO 
+                 | FLOTANTE
+    '''
+
+def p_estructuraClase(p):
+    'estructuraClase : CLASS NOMBRE_CLASE'
+
 def p_valorTodos(p):
   '''valorTodos : variablesTotales
                 | estructuraHash
                 | estructuraArray
   '''
-
+ 
 # ----------------------------------Operadores Asignacion----------------------------------
 def p_estructuraAsignacion(p):
   '''estructuraAsignacion : TiposNomVariables tipoAsignacion variables
                           | TiposNomVariables IGUAL variablesTotales
+                          | TiposNomVariables IGUAL operacion
                           | TiposNomVariables IGUAL estructuraComparacion
                           | TiposNomVariables IGUAL estructuraArray
-                          | TiposNomVariables IGUAL estructuraLeerArchivo
+                          | TiposNomVariables IGUAL estructuraHash
+                          | TiposNomVariables IGUAL llamadoFunciones
+                          | TiposNomVariables IGUAL estructuraCasting
                           | TiposNomVariables IGUAL estructuraEntrada
                           | TiposNomVariables IGUAL estructuraAbrirArchivo
-                          | TiposNomVariables IGUAL llamadoFunciones 
-                          | TiposNomVariables IGUAL estructuraLeerArchivoLinea                
-                          | TiposNomVariables IGUAL estructuraHash
-                          | TiposNomVariables IGUAL operacion
-                          | TiposNomVariables IGUAL estructuraSplit                        
-                '''
+                          | TiposNomVariables IGUAL estructuraLeerArchivo
+  '''
 
 def p_tipoAsignacion(p):
   '''tipoAsignacion : MAS_IGUAL
@@ -60,11 +101,18 @@ def p_tipoAsignacion(p):
                     | EXPONENCIAL_IGUAL
                 '''
 
-
 #---------------------------------- Operacion Matematicas -------------------------------
+
 def p_operacion(p):
-  ''' operacion : numericos operador numericos
-                | numericos operador numericos operador operacion
+  ''' operacion : variablesoperacion operador variablesoperacion
+                | PAR_I variablesoperacion operador variablesoperacion PAR_D
+                | variablesoperacion operador variablesoperacion operador operacion
+                | PAR_I variablesoperacion operador variablesoperacion PAR_D operador operacion
+  '''
+
+def p_variablesoperacion(p):
+  ''' variablesoperacion : numericos
+                         | TiposNomVariables
   '''
 
 def p_operador(p):
@@ -77,7 +125,12 @@ def p_operador(p):
   '''
 # -------------------------------Operadores Comparacion---------------------------------
 def p_estructuraComparacion(p):
-  'estructuraComparacion : variablesTotales comparador variablesTotales'
+  '''estructuraComparacion : variablesTotales comparador variablesTotales
+                           | NOT variablesTotales comparador variablesTotales
+                           | NOT variables
+                           | NOT boleanos
+                           | variablesTotales comparador variablesTotales operadoresComparacion estructuraComparacion
+                           '''
 
 def p_comparador(p):
   '''comparador : MENOR_QUE
@@ -87,6 +140,12 @@ def p_comparador(p):
                 | MENOR_IGUAL
                 | NO_IGUAL
   '''
+
+def p_operadoresComparacion(p):
+  '''operadoresComparacion : AND
+                           | OR
+  '''
+
 # ----------------------------------Estructura de Control---------------------------------
 def p_estructurasControl(p):
   '''estructurasControl : estructuraIf
@@ -96,27 +155,28 @@ def p_estructurasControl(p):
 
 def p_estructuraIf(p):
   '''estructuraIf : IF PAR_I estructuraComparacion PAR_D cuerpo END
+                  | IF estructuraComparacion cuerpo END
                   | IF PAR_I estructuraComparacion PAR_D cuerpo estructuraElse END
-                '''
+                  | IF estructuraComparacion cuerpo estructuraElse END
+  '''
 
 def p_estructuraUntil(p):
   '''estructuraUntil : UNTIL PAR_I estructuraComparacion PAR_D cuerpo END
-                '''
-
-def p_estructuraElse(p):
-  '''estructuraElse : ELSE cuerpo
-                '''
-
-def p_estructuraCase(p):
-  'estructuraCase : CASE NOMBRE_VARIABLE SALTO_LINEA estructuraWhenI END'
-
-def p_estructuraWhenI(p):
-  '''estructuraWhenI : estructuraWhen estructuraElse
+                     | UNTIL estructuraComparacion cuerpo END
   '''
 
+def p_estructuraElse(p):
+  'estructuraElse : ELSE cuerpo'
+
+def p_estructuraCase(p):
+  'estructuraCase : CASE NOMBRE_VARIABLE estructuraWhenI END'
+
+def p_estructuraWhenI(p):
+  'estructuraWhenI : estructuraWhen estructuraElse'
+
 def p_estructuraWhen(p):
-  '''estructuraWhen : WHEN sentenciaWhen SALTO_LINEA cuerpo
-                   | estructuraWhen SALTO_LINEA WHEN sentenciaWhen SALTO_LINEA cuerpo
+  '''estructuraWhen : WHEN sentenciaWhen cuerpo
+                    | estructuraWhen WHEN sentenciaWhen cuerpo
   '''
 
 def p_sentenciaWhen(p):
@@ -126,6 +186,8 @@ def p_sentenciaWhen(p):
 
 def p_intervaloW(p):
   'intervaloW : ENTERO INTERVALO ENTERO '
+
+
 
 # ----------------------------------Estructura de Datos-----------------------------------
 # ----------------------------------Array-----------------------------------
@@ -142,7 +204,8 @@ def p_parametrosA(p):
   '''
 
 def p_funcionesArreglo(p):
-  '''funcionesArreglo : TiposNomVariables PUNTO nombreFuncionesA 
+  '''funcionesArreglo : TiposNomVariables PUNTO nombreFuncionesA
+                      | estructuraArray PUNTO nombreFuncionesA
   '''
 
 def p_nombreFuncionesA(p):
@@ -173,8 +236,6 @@ def p_cuerpoH(p):
              | cuerpoH COMA CADENA ASIGNACION valorTodos
   '''
 
-
-
 # ----------------------------------Funciones-----------------------------------
 def p_estructuraFunciones(p):
   '''estructuraFunciones : DEF funcionSinAtributos END
@@ -191,12 +252,13 @@ def p_funcionConAtributos(p):
   '''
 
 def p_parametrosFunciones(p):
-  '''parametrosFunciones : TiposNomVariables
-                         | TiposNomVariables COMA parametrosFunciones
+  '''parametrosFunciones : NOMBRE_VARIABLE
+                         | NOMBRE_VARIABLE COMA parametrosFunciones
   '''
+
 def p_llamadoFunciones(p):
   '''llamadoFunciones : NOMBRE_FUNCION PAR_I PAR_D 
-                      | NOMBRE_FUNCION PAR_I parametrosFunciones PAR_D
+                      | NOMBRE_FUNCION PAR_I parametrosA PAR_D
   '''
 
 def p_funcionConDefectos(p):
@@ -238,6 +300,11 @@ def p_limpiarDatos(p):
   '''limpiarDatos : STDOUT PUNTO FLUSH
                 '''
 # ----------------------------------Casting-----------------------------------
+def p_estructuraCasting(p):
+  ''' estructuraCasting : castingString
+                        | castingInteger
+                        | castingFloat
+  '''
 
 def p_castingString(p):
   ''' castingString : ENTERO PUNTO TOSTRING
@@ -247,18 +314,20 @@ def p_castingString(p):
   '''
 
 def p_castingInteger(p):
-  ''' castingString : CADENA PUNTO TOINTEGER
+  ''' castingInteger : CADENA PUNTO TOINTEGER
                     | FLOTANTE PUNTO TOINTEGER
                     | INTEGER PAR_I CADENA PAR_D
                     | INTEGER PAR_I FLOTANTE PAR_D
   '''
 
 def p_castingFloat(p):
-  ''' castingString : ENTERO PUNTO TOFLOAT
+  ''' castingFloat : ENTERO PUNTO TOFLOAT
                     | CADENA PUNTO TOFLOAT
                     | FLOAT PAR_I ENTERO PAR_D
                     | FLOAT PAR_I CADENA PAR_D
   '''
+
+
 # ----------------------------------Manejo de archivos-----------------------------------
 # ----------------------------------Leer archivos-----------------------------------
 def p_estructuraLeerArchivo(p):
@@ -297,37 +366,6 @@ def p_estructuraEscribirArchivo(p):
                                  | FILE PUNTO WRITE PAR_I CADENA COMA TiposNomVariables PAR_D
                                  | NOMBRE_VARIABLE PUNTO WRITE PAR_I CADENA PAR_D
     '''
-# ----------------------------------Variables-----------------------------------
-def p_variablesTotales(p):
-    '''variablesTotales : variables 
-                        | boleanos
-    '''
-
-def p_variables(p):
-  '''variables : CADENA
-               | numericos
-               | TiposNomVariables
-  '''
-
-
-def p_TiposNomVariables(p):
-  '''TiposNomVariables : NOMBRE_VARIABLE
-                       | VARIABLE_GLOBAL
-                       | VARIABLE_INSTANCIA
-                       | VARIABLE_CLASE '''
-
-def p_boleanos(p):
-    '''boleanos : TRUE 
-                | FALSE
-    '''
-def p_numericos(p):
-    '''numericos : ENTERO 
-                 | FLOTANTE
-    '''
-def p_estructuraClase(p):
-    '''estructuraClase : CLASS NOMBRE_CLASE
-    '''
-
 #Imprime errores según las reglas
 def p_error(p):
     if p:
@@ -338,23 +376,21 @@ def p_error(p):
 
 # Construye el parser
 sintactico = yacc.yacc()
+archivo = open("prueba.rb", "r")
+for line in archivo:
+        if line != "\n":
+            if line[:3] == "def" or line[:2] == "if" or line[:5] == "until" or line[:4] == "case" :
+                nLine = line.replace("\n", "")
+                for Eline in archivo:
+                    nLine += " " + Eline.replace("\n", "").replace("\t", "")
+                    if Eline[:3] == "end":
+                        break
+                line = nLine
+            print(line.replace("\n", ""))
+            result = sintactico.parse(line)
+            if result is None:
+                linea = "Bloque o linea de codigo correcto \n"
+            else:
+                linea = "Error en la sintaxis \n"
+            print(linea)
 
-while True:
-    try:
-      linea = input('vb.net>> ')
-    except EOFError:
-        break
-    if not linea: continue
-    result = sintactico.parse(linea)
-    print(result)
-
-'''
-linea=" "
-codigo = open("source.vb")
-for linea in codigo:
-  result = sintactico.parse(linea)
-  print(result)
-codigo.close()
-
-print("Proyecto casi terminado... :)")
-'''

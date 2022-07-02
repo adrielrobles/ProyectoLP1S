@@ -1,27 +1,41 @@
-#PROYECTO PRIMER PARCIAL PARTE A 
-#NOMBRES:
-#Darinka Townsend
-#Jean Moreano
-# Adriel Robles
+peso/altura
 
-#CODIGO DE PRUEBA 
-  
-#ESCRITURA DE VARIABLES
 edad=12
 _nOMBRE_="Darinka"
 apellido="Townsend"
 @gravedad=9.8
 $altura=168
+$opcion =    true
 
-#ENTRADA Y SALIDA DE DATOS
+var = 10+4-(8*$altura)
 
-print("Hola mundo")
-puts "¿En qué ciudad te gustaría vivir?"
+var = 5 <= 8 and not false
+5 <= 8 and not false
 
-# gets y chomp
-ciudad = gets.chomp
-puts "La ciudad es " + ciudad
+#ESTRUCTURAS DE CONTROL
+#if
+if (calificacion >= 70)
+  iterador += 1
+end
 
+#until
+iterador = 0 
+until (iterador > 5)
+  iterador += 1
+end
+
+#case
+edad = 5 
+case edad
+when 0 .. 2 
+  iterador += 1
+when 3 .. 12
+  iterador += 1
+when 13 .. 18
+  iterador += 1
+else
+  iterador += 1
+end
 
 #ARREGLO
 my_arr = Array.new
@@ -30,68 +44,22 @@ my_third_array = ["one", "two", "three"]
 my_arr.push("animal")
 array = ["Jean", "Adriel", "Darinka"] 
 array.delete_at(1)
-
+#SRING
+apellido="Townsend"
+apellido.size
+apellido.insert(0,"hola ")
 #HASH
-calificaciones = { 'Carlos' => 5,
-  'Dora' => 10
-  }
-  
-  puts calificaciones
-  
-
-
-
-#CLASE
-class Integer
-a = Array.new  + [12345]  #  Array  agregado.
-b = String.new + 'hello'  #  String agregado.
-c = Time.new
-
-puts 'a = '+a.to_s
-puts 'b = '+b.to_s
-puts 'c = '+c.to_s
-
-#ESTRUCTURAS DE CONTROL
-#if
-if (calificacion >= 70)
-  puts "Aprobado"
-end
-
-#until
-iterador = 0 
-until iterador > 5
-  puts "el número es: "+String(iterador)
-  iterador += 1
-end
-
-#case
-edad = 5 case edad when 0 .. 2
-  puts "Bebe" when 3 .. 12
-  puts "Niño" when 13 .. 18
-  puts "Adolescente" else
-  puts "Adulto" end
-  
-
-
+calificaciones = { 'Carlos' => 5, 'Dora' => 10 }
 #FUNCION
 def IMC(peso,altura) 
-  peso/altura**2
+  peso/altura
 end
 
-#MANEJO DE ARCHIVOS 
-#lectura
-content = File.read("contenido.txt") 
-lines = content.split("\n")
-
-lines.each do |line|
-  puts line 
+def IMC() 
+  peso/altura
 end
 
-#escritura
-File.write("cuento.txt", "Había una vez ...")
-
-File.open("cuento.txt", "w") do |file| 
-  file.write("Había una vez ...")
+def IMC(peso=0,altura=5) 
+  peso/altura
 end
-
-
+var = IMC()
