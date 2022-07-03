@@ -14,11 +14,12 @@ def p_instrucciones(p):
                    | estructuraHash
                    | estructuraFunciones
                    | operacion
-                   | estructuraCasting
                    | estructuraSalida
-                   | estructuraEntrada
+                   | estructuraCasting
                    | limpiarDatos
                    | estructuraEscribirArchivo
+                   | estructuraClase
+                   | estructuraRecorrerArchivo
                 '''
 def p_cuerpo(p):
     '''cuerpo : variablesTotales
@@ -32,11 +33,11 @@ def p_cuerpo(p):
               | estructuraFunciones
               | llamadoFunciones
               | operacion
-              | estructuraCasting
               | estructuraSalida
-              | estructuraEntrada
+              | estructuraCasting
               | limpiarDatos
               | estructuraEscribirArchivo
+              | estructuraRecorrerArchivo
     '''
 
 # ----------------------------------Variables-----------------------------------
@@ -88,8 +89,10 @@ def p_estructuraAsignacion(p):
                           | TiposNomVariables IGUAL llamadoFunciones
                           | TiposNomVariables IGUAL estructuraCasting
                           | TiposNomVariables IGUAL estructuraEntrada
-                          | TiposNomVariables IGUAL estructuraAbrirArchivo
                           | TiposNomVariables IGUAL estructuraLeerArchivo
+                          | TiposNomVariables IGUAL estructuraLeerArchivoLinea
+                          | TiposNomVariables IGUAL estructuraAbrirArchivo
+                          | TiposNomVariables IGUAL estructuraSplit
   '''
 
 def p_tipoAsignacion(p):
@@ -332,7 +335,7 @@ def p_castingFloat(p):
 # ----------------------------------Leer archivos-----------------------------------
 def p_estructuraLeerArchivo(p):
     '''estructuraLeerArchivo : FILE PUNTO READ PAR_I TiposNomVariables PAR_D
-                              | FILE PUNTO READ PAR_I CADENA PAR_D
+                             | FILE PUNTO READ PAR_I CADENA PAR_D
     '''
 
 def p_estructuraLeerArchivoLinea(p):
@@ -340,22 +343,23 @@ def p_estructuraLeerArchivoLinea(p):
                                   | FILE PUNTO READLINES PAR_I CADENA PAR_D
     '''
 def p_estructuraAbrirArchivo(p):
-    '''estructuraAbrirArchivo : FILE PUNTO OPEN PAR_I TiposNomVariables COMA MODOAPERTURA PAR_D
-                              | FILE PUNTO OPEN PAR_I CADENA COMA MODOAPERTURA PAR_D
+    '''estructuraAbrirArchivo : FILE PUNTO OPEN PAR_I TiposNomVariables COMA CADENA PAR_D
+                              | FILE PUNTO OPEN PAR_I CADENA COMA CADENA PAR_D
     '''
 # ----------------------------------RECORRER ARCHIVO-----------------------------------
 
 def p_estructuraRecorrerArchivo(p):
     '''estructuraRecorrerArchivo : variablesRecorrer PUNTO EACH DO PIPE NOMBRE_VARIABLE PIPE cuerpo END
+                                 | TiposNomVariables PUNTO EACH DO PIPE NOMBRE_VARIABLE PIPE cuerpo END
                                  | estructuraAbrirArchivo DO PIPE NOMBRE_VARIABLE PIPE cuerpo END
     '''
 
 def p_estructuraSplit(p):
-    'estructuraSplit : TiposNomVariables PUNTO SPLIT PAR_I CADENA PAR_D'
+    '''estructuraSplit : TiposNomVariables PUNTO SPLIT PAR_I CADENA PAR_D
+                       | estructuraLeerArchivo PUNTO SPLIT PAR_I CADENA PAR_D'''
     
 def p_variablesRecorrer(p):
-    '''variablesRecorrer : TiposNomVariables
-                         | estructuraLeerArchivoLinea
+    '''variablesRecorrer : estructuraLeerArchivoLinea
                          | estructuraSplit
     '''
 # ----------------------------------Escribir archivos-----------------------------------
@@ -364,8 +368,9 @@ def p_estructuraEscribirArchivo(p):
                                  | FILE PUNTO WRITE PAR_I TiposNomVariables COMA CADENA PAR_D
                                  | FILE PUNTO WRITE PAR_I CADENA COMA CADENA PAR_D
                                  | FILE PUNTO WRITE PAR_I CADENA COMA TiposNomVariables PAR_D
-                                 | NOMBRE_VARIABLE PUNTO WRITE PAR_I CADENA PAR_D
+                                 | TiposNomVariables PUNTO WRITE PAR_I CADENA PAR_D
     '''
+
 #Imprime errores según las reglas
 def p_error(p):
     if p:
@@ -377,17 +382,17 @@ def p_error(p):
 # Construye el parser
 sintactico = yacc.yacc()
 archivo = open("prueba.rb", "r")
-for line in archivo:
-        if line != "\n":
-            if line[:3] == "def" or line[:2] == "if" or line[:5] == "until" or line[:4] == "case" :
-                nLine = line.replace("\n", "")
-                for Eline in archivo:
-                    nLine += " " + Eline.replace("\n", "").replace("\t", "")
-                    if Eline[:3] == "end":
+for linea in archivo:
+        if linea != "\n" and linea[0] != '#':
+            if linea[:3] == "def" or linea[:2] == "if" or linea[:5] == "until" or linea[:4] == "case" :
+                nuevaLinea = linea.replace("\n", "")
+                for Slinea in archivo:
+                    nuevaLinea += " " + Slinea.replace("\n", "").replace("\t", "")
+                    if Slinea[:3] == "end":
                         break
-                line = nLine
-            print(line.replace("\n", ""))
-            result = sintactico.parse(line)
+                linea = nuevaLinea
+            print(linea.replace("\n", ""))
+            result = sintactico.parse(linea)
             if result is None:
                 linea = "Bloque o linea de codigo correcto \n"
             else:

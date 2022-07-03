@@ -49,7 +49,7 @@ reservadas = {
 tokens = ["MAS", "MENOS", "DIV", "MULTIPLICACION", "MODULO","DOBLE_IGUAL","MULTIPLICACION_IGUAL","EXPONENCIAL_IGUAL", 
           "MENOR_IGUAL","NO_IGUAL","BACKS", "MENOR_QUE", "MAYOR_IGUAL","IGUAL", "PAR_I", "PAR_D","NOMBRE_VARIABLE","VARIABLE_GLOBAL",
            "VARIABLE_INSTANCIA","VARIABLE_CLASE","NOMBRE_CLASE", "DIVISION_IGUAL","RESTA_IGUAL","MODULO_IGUAL", "ENTERO","FLOTANTE","CADENA",
-          "CORCHETE_D","CORCHETE_I","ASIGNACION","PIPE","POTENCIA","LLAVE_I","INTERVALO","LLAVE_D","NOMBRE_FUNCION","PUNTO","MAS_IGUAL","COMA","MAYOR_QUE","MODOAPERTURA"] +list(reservadas.values())
+          "CORCHETE_D","CORCHETE_I","ASIGNACION","PIPE","POTENCIA","LLAVE_I","INTERVALO","LLAVE_D","NOMBRE_FUNCION","PUNTO","MAS_IGUAL","COMA","MAYOR_QUE"] +list(reservadas.values())
 
 #Definir expresiones regulares
 #Empieza Darinka Townsend
@@ -81,8 +81,7 @@ t_DOBLE_IGUAL= r'=='
 t_MENOR_IGUAL = r'<='
 t_NO_IGUAL = r'!='
 t_ignore = " \t"
-t_ignore_COMMENT = r'\#.'
-
+t_ignore_comment = r'\#.*'
 
 #caractere especiales
 t_BACKS = r'\\'
@@ -92,7 +91,6 @@ t_PUNTO=r'\.'
 t_COMA=r'\,'
 t_INTERVALO=r'\.\.'
 t_PIPE=r'\|'
-t_MODOAPERTURA=r'\"[a-z]\"'
 # termina Darinka Townsend
 # empieza Jean Moreano
 

@@ -62,4 +62,27 @@ end
 def IMC(peso=0,altura=5) 
   peso/altura
 end
-var = IMC()
+
+print("Hola mundo")
+puts "¿En qué ciudad te gustaría vivir?"
+ciudad = gets.chomp
+puts "La ciudad es " + ciudado
+
+123.5.to_s 
+String(123.5) 
+"123.50".to_i	
+Integer("123.50") 
+
+"123.50".to_f 
+Float("123.50") 
+
+content = File.read("contenido.txt")
+lines = content.split("\n") 
+
+lines = File.readlines("contenido.txt") 
+lines = File.open("cuento.txt", "w")
+
+lines.each do |line| puts line end 
+File.readlines("contenido.txt").each do |line| puts line end
+File.read("contenido.txt").split("\n").each do |line| puts line end
+File.open("cuento.txt", "w") do |file| file.write("Había una vez ...") end
