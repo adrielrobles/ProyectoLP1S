@@ -50,6 +50,16 @@ apellido.size
 apellido.insert(0,"hola ")
 #HASH
 calificaciones = { 'Carlos' => 5, 'Dora' => 10 }
+calificaciones.default = 0
+calificaciones.clear
+calificacion.empty?
+calificaciones.has_key?('Carlos')
+calificaciones.has_value?(5)
+calificaciones.key(5)
+calificaciones.keys
+calificaciones.length
+calificaciones.delete('Carlos')
+calificaciones.values
 #FUNCION
 def IMC(peso,altura) 
   peso/altura

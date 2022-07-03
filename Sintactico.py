@@ -20,6 +20,7 @@ def p_instrucciones(p):
                    | estructuraEscribirArchivo
                    | estructuraClase
                    | estructuraRecorrerArchivo
+                   | metodosHash
                 '''
 def p_cuerpo(p):
     '''cuerpo : variablesTotales
@@ -237,6 +238,22 @@ def p_estructuraHash(p):
 def p_cuerpoH(p):
   '''cuerpoH : CADENA ASIGNACION valorTodos
              | cuerpoH COMA CADENA ASIGNACION valorTodos
+  '''
+
+
+
+def p_metodosHash(p):
+  '''metodosHash : TiposNomVariables PUNTO HAS_VALUE INTERROGACION PAR_I valorTodos PAR_D
+                         | TiposNomVariables PUNTO HAS_KEY INTERROGACION PAR_I CADENA PAR_D
+                         | TiposNomVariables PUNTO EMPTY INTERROGACION
+                         | TiposNomVariables PUNTO CLEAR
+                         | TiposNomVariables PUNTO KEYS
+                         | TiposNomVariables PUNTO LENGTH
+                         | TiposNomVariables PUNTO VALUES
+                         | TiposNomVariables PUNTO KEY PAR_I valorTodos PAR_D
+                         | TiposNomVariables PUNTO DELETE PAR_I CADENA PAR_D
+                         | TiposNomVariables PUNTO DEFAULT IGUAL valorF
+
   '''
 
 # ----------------------------------Funciones-----------------------------------
