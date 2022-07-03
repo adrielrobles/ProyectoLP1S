@@ -41,7 +41,7 @@ def p_cuerpo(p):
               | estructuraRecorrerArchivo
     '''
 
-# ----------------------------------Variables-----------------------------------
+# ----------------------------------Variables (Darinka Townsend)-----------------------------------
 def p_variablesTotales(p):
     '''variablesTotales : variables 
                         | boleanos
@@ -79,7 +79,7 @@ def p_valorTodos(p):
                 | estructuraArray
   '''
  
-# ----------------------------------Operadores Asignacion----------------------------------
+# ----------------------------------Operadores Asignacion (Jean Moreano)----------------------------------
 def p_estructuraAsignacion(p):
   '''estructuraAsignacion : TiposNomVariables tipoAsignacion variables
                           | TiposNomVariables IGUAL variablesTotales
@@ -105,7 +105,7 @@ def p_tipoAsignacion(p):
                     | EXPONENCIAL_IGUAL
                 '''
 
-#---------------------------------- Operacion Matematicas -------------------------------
+#---------------------------------- Operacion Matematicas (Darinka Townsend)-------------------------------
 
 def p_operacion(p):
   ''' operacion : variablesoperacion operador variablesoperacion
@@ -127,7 +127,7 @@ def p_operador(p):
               | DIV
               | MODULO
   '''
-# -------------------------------Operadores Comparacion---------------------------------
+# -------------------------------Operadores Comparacion (Darinka Townsend)---------------------------------
 def p_estructuraComparacion(p):
   '''estructuraComparacion : variablesTotales comparador variablesTotales
                            | NOT variablesTotales comparador variablesTotales
@@ -150,7 +150,7 @@ def p_operadoresComparacion(p):
                            | OR
   '''
 
-# ----------------------------------Estructura de Control---------------------------------
+# ----------------------------------Estructura de Control (Todos)---------------------------------
 def p_estructurasControl(p):
   '''estructurasControl : estructuraIf
                         | estructuraUntil
@@ -194,7 +194,7 @@ def p_intervaloW(p):
 
 
 # ----------------------------------Estructura de Datos-----------------------------------
-# ----------------------------------Array-----------------------------------
+# ----------------------------------Array (Adriel Robles)-----------------------------------
 
 def p_estructuraArray(p):
   '''estructuraArray : CORCHETE_I CORCHETE_D
@@ -216,7 +216,7 @@ def p_nombreFuncionesA(p):
   '''nombreFuncionesA : PUSH PAR_I variablesTotales PAR_D
                       | DELETE PAR_I ENTERO PAR_D
   '''  
-# ----------------------------------String-----------------------------------
+# ----------------------------------String (Jean Moreano)-----------------------------------
 def p_funcionesString(p):
   '''funcionesString : TiposNomVariables PUNTO nombreFuncionesS
                      | CADENA PUNTO nombreFuncionesS
@@ -230,7 +230,7 @@ def p_nombreFuncionesS(p):
                       | SIZE PAR_I  PAR_D
                       | SIZE
   '''
-# ----------------------------------Hashes-----------------------------------
+# ----------------------------------Hashes (Darinka Townsend)-----------------------------------
 
 def p_estructuraHash(p):
   'estructuraHash : LLAVE_I cuerpoH LLAVE_D'
@@ -256,7 +256,7 @@ def p_metodosHash(p):
 
   '''
 
-# ----------------------------------Funciones-----------------------------------
+# ----------------------------------Funciones (Adriel Robles)-----------------------------------
 def p_estructuraFunciones(p):
   '''estructuraFunciones : DEF funcionSinAtributos END
                          | DEF funcionConAtributos END
@@ -298,7 +298,7 @@ def p_valorF(p):
             | FALSE
   '''
 
-# ----------------------------------Entrada y salida de Datos-----------------------------------
+# ----------------------------------Entrada y salida de Datos (Adriel y Jean)-----------------------------------
 def p_estructuraSalida(p):
   '''estructuraSalida : operadoresSalidas cuerpoSalida
                       | operadoresSalidas PAR_I cuerpoSalida PAR_D
@@ -319,7 +319,7 @@ def p_estructuraEntrada(p):
 def p_limpiarDatos(p):
   '''limpiarDatos : STDOUT PUNTO FLUSH
                 '''
-# ----------------------------------Casting-----------------------------------
+# ----------------------------------Casting (Darinka Townsend)-----------------------------------
 def p_estructuraCasting(p):
   ''' estructuraCasting : castingString
                         | castingInteger
@@ -349,7 +349,7 @@ def p_castingFloat(p):
 
 
 # ----------------------------------Manejo de archivos-----------------------------------
-# ----------------------------------Leer archivos-----------------------------------
+# ----------------------------------Leer archivos (Adriel Robles)-----------------------------------
 def p_estructuraLeerArchivo(p):
     '''estructuraLeerArchivo : FILE PUNTO READ PAR_I TiposNomVariables PAR_D
                              | FILE PUNTO READ PAR_I CADENA PAR_D
@@ -363,7 +363,7 @@ def p_estructuraAbrirArchivo(p):
     '''estructuraAbrirArchivo : FILE PUNTO OPEN PAR_I TiposNomVariables COMA CADENA PAR_D
                               | FILE PUNTO OPEN PAR_I CADENA COMA CADENA PAR_D
     '''
-# ----------------------------------RECORRER ARCHIVO-----------------------------------
+# ----------------------------------RECORRER ARCHIVO (Adriel Robles) -----------------------------------
 
 def p_estructuraRecorrerArchivo(p):
     '''estructuraRecorrerArchivo : variablesRecorrer PUNTO EACH DO PIPE NOMBRE_VARIABLE PIPE cuerpo END
@@ -379,7 +379,7 @@ def p_variablesRecorrer(p):
     '''variablesRecorrer : estructuraLeerArchivoLinea
                          | estructuraSplit
     '''
-# ----------------------------------Escribir archivos-----------------------------------
+# ----------------------------------Escribir archivos (Jean Moreano)-----------------------------------
 def p_estructuraEscribirArchivo(p):
     '''estructuraEscribirArchivo : FILE PUNTO WRITE PAR_I TiposNomVariables COMA TiposNomVariables PAR_D
                                  | FILE PUNTO WRITE PAR_I TiposNomVariables COMA CADENA PAR_D
