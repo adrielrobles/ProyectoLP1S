@@ -332,6 +332,7 @@ def p_castingString(p):
                     | STRING PAR_I ENTERO PAR_D
                     | STRING PAR_I FLOTANTE PAR_D
   '''
+  print("Casting String")
 
 def p_castingInteger(p):
   ''' castingInteger : CADENA PUNTO TOINTEGER
@@ -339,6 +340,7 @@ def p_castingInteger(p):
                     | INTEGER PAR_I CADENA PAR_D
                     | INTEGER PAR_I FLOTANTE PAR_D
   '''
+  print("Casting Integer")
 
 def p_castingFloat(p):
   ''' castingFloat : ENTERO PUNTO TOFLOAT
@@ -346,6 +348,9 @@ def p_castingFloat(p):
                     | FLOAT PAR_I ENTERO PAR_D
                     | FLOAT PAR_I CADENA PAR_D
   '''
+  print("Casting Float")
+  
+ 
 
 
 # ----------------------------------Manejo de archivos-----------------------------------
@@ -387,6 +392,7 @@ def p_estructuraEscribirArchivo(p):
                                  | FILE PUNTO WRITE PAR_I CADENA COMA TiposNomVariables PAR_D
                                  | TiposNomVariables PUNTO WRITE PAR_I CADENA PAR_D
     '''
+    
 
 #Imprime errores según las reglas
 def p_error(p):
@@ -398,7 +404,19 @@ def p_error(p):
 
 # Construye el parser
 sintactico = yacc.yacc()
+
+result = sintactico.parse("String(2)")
+if result is None:
+  linea = "Bloque o linea de codigo correcto \n"
+else:
+  linea = "Error en la sintaxis \n"
+print(result)
+
+
+
+'''
 archivo = open("prueba.rb", "r")
+
 for linea in archivo:
         if linea != "\n" and linea[0] != '#':
             if linea[:3] == "def" or linea[:2] == "if" or linea[:5] == "until" or linea[:4] == "case" :
@@ -410,9 +428,14 @@ for linea in archivo:
                 linea = nuevaLinea
             print(linea.replace("\n", ""))
             result = sintactico.parse(linea)
+            print()
             if result is None:
                 linea = "Bloque o linea de codigo correcto \n"
             else:
                 linea = "Error en la sintaxis \n"
             print(linea)
+
+'''
+
+
 
