@@ -164,6 +164,19 @@ def t_error(t):
   
 
 validador = lexico.lex()
+toks = []
+
+def analizar(data):
+    toks= []
+    validador.input(data)
+    while True:
+        tok = validador.token()
+        if not tok:
+            break 
+        toks.append(str(tok))
+    return toks
+
+
 '''
 def getTokens(lexer):
     while True:
