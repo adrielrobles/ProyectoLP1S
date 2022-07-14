@@ -4,6 +4,8 @@ import ply.yacc as yacc
 from ProyectoLP import tokens
 
 ParserTree={}
+
+
 def p_instrucciones(p):
   '''instrucciones : variablesTotales
                    | estructuraAsignacion
@@ -458,11 +460,12 @@ def p_estructuraEscribirArchivo(p):
 
 #Imprime errores según las reglas
 def p_error(p):
-    if p:
-        print("Error de sintaxis en token", p.type)
-        # Just discard the token and tell the parser it's okay.
-    else:
-        print("Error de sintaxis EOF")
+  if p:
+    print("Error de sintaxis en token", p.type)
+  # Just discard the token and tell the parser it's okay.
+  else:
+    print("Error de sintaxis EOF en analizador sintáctico")
+   
 
 #recorrido del parse
 def Recorrido(regla,lectura):
@@ -472,17 +475,19 @@ def Recorrido(regla,lectura):
 def AnalizadorSintactico(linea):
   sintactico = yacc.yacc()
   result=sintactico.parse(linea)
+  print(result)
   if result is None:
-    salida = ParserTree.copy()
+    salida = ParserTree.copy()    
     #print(salida)
   else:
-    salida = "Error en la sintaxis\n"
-  
-  limpiarParseTree()
+    salida = "Error en la sintaxis\n"  
+  limpiarParseTree() 
   return salida
 
 def limpiarParseTree():
   ParserTree.clear()
+
+
 
 
 

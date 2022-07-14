@@ -35,9 +35,16 @@ def analisisSintactico():
     todo=''
     numeroLinea=0
     
+    
     for linea in result.split("\n"):
-        estructura=reglasPorLinea(AnalizadorSintactico(linea))
-        todo+="{}: {}\n".format(numeroLinea,estructura)
+        print(AnalizadorSintactico(linea))
+        if(len(AnalizadorSintactico(linea))!=0):
+            estructura=reglasPorLinea(AnalizadorSintactico(linea))
+            todo+="{}: {}\n".format(numeroLinea,estructura)
+            
+        else:
+            todo+="{}: {}\n".format(numeroLinea,"Error de Sintaxis")
+
         numeroLinea+=1  
            
     # con este codigo rellenas la caja de texto
