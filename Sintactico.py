@@ -215,6 +215,7 @@ def p_sentenciaWhen(p):
 
 def p_intervaloW(p):
   'intervaloW : ENTERO INTERVALO ENTERO '
+  Recorrido("intervaloW","Rango de numeros")
   
 
 
@@ -295,11 +296,15 @@ def p_metodosHash(p):
 
 # ----------------------------------Funciones (Adriel Robles)-----------------------------------
 def p_estructuraFunciones(p):
-  '''estructuraFunciones : DEF funcionSinAtributos END
-                         | DEF funcionConAtributos END
-                         | DEF funcionConDefectos END
+  'estructuraFunciones : definicionF END'
+  Recorrido("estructuraFUnciones","Estructura de una Funcion")
+
+def p_definicionF(p):
+  ''' definicionF : DEF funcionSinAtributos
+                  | DEF funcionConAtributos
+                  | DEF funcionConDefectos
   '''
-  
+  Recorrido("definicionF","Definicion de funcion")
   
 def p_funcionSinAtributos(p):
   '''funcionSinAtributos : NOMBRE_FUNCION PAR_I PAR_D cuerpo
@@ -321,7 +326,7 @@ def p_llamadoFunciones(p):
   '''llamadoFunciones : NOMBRE_FUNCION PAR_I PAR_D 
                       | NOMBRE_FUNCION PAR_I parametrosA PAR_D
   '''
-  Recorrido("llamadoFunciones","Definición de la función")
+  Recorrido("llamadoFunciones","llamar a una función")
   
 
 
@@ -482,14 +487,15 @@ def AnalizadorSintactico(linea):
     salida = (ParserTree.copy(),ParserTreeTodo)    
     
   else:
-    salida = "Error en la sintaxis\n"  
+    salida = "Anàlisis Sintàctico no valido\n"  
   limpiarParseTree() 
   return salida
 
 def limpiarParseTree():
   ParserTree.clear()
 
-
+def limpiarParserTreeTodo():
+  ParserTreeTodo.clear()
 
 
 

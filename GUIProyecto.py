@@ -5,12 +5,14 @@ from tkinter import scrolledtext as st
 from tkinter.ttk import Treeview
 from ProyectoLP import analizar
 from Sintactico import AnalizadorSintactico
+from Sintactico import limpiarParserTreeTodo
 def Limpiar():
     for row in tabla.get_children():
         tabla.delete(row)
     text_code_lex.configure(state="normal")
     Cajatexto.delete("1.0","end")
     text_code_lex.delete("1.0","end")
+    limpiarParserTreeTodo()
 
 def Compilacion():
     anlisisLexico()
@@ -51,7 +53,7 @@ def analisisSintactico():
         Encabezado="No hay estructura general"
     else:
         Encabezado=reglasPorLinea(AnalizadorSintactico(resultado_es)[1])
-    todo="General: {}\n--- Análisis Linea a Linea ---\n".format(Encabezado)
+    todo="-------- General -------- \n{}\n--- Análisis Linea a Linea ---\n".format(Encabezado)
     
     
     
@@ -61,7 +63,7 @@ def analisisSintactico():
             todo+="{}: {}\n".format(numeroLinea,estructura)
             
         else:
-            todo+="{}: {}\n".format(numeroLinea,"Error de Sintaxis")
+            todo+="{}: {}\n".format(numeroLinea,"Estructura inválida")
 
         numeroLinea+=1  
          
