@@ -477,10 +477,10 @@ def Recorrido(regla,lectura):
 def AnalizadorSintactico(linea):
   sintactico = yacc.yacc()
   result=sintactico.parse(linea)
-  print(result)
+  
   if result is None:
     salida = (ParserTree.copy(),ParserTreeTodo)    
-    #print(salida)
+    
   else:
     salida = "Error en la sintaxis\n"  
   limpiarParseTree() 
