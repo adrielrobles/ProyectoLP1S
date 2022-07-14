@@ -45,6 +45,8 @@ def analisisSintactico():
     numeroLinea=0
     
     resultado_es=result
+    print("------ GENERAL ------")
+    print(AnalizadorSintactico(resultado_es)[1])
     if(len(AnalizadorSintactico(resultado_es)[1])==0):
         Encabezado="No hay estructura general"
     else:
@@ -52,8 +54,8 @@ def analisisSintactico():
     todo="General: {}\n--- Análisis Linea a Linea ---\n".format(Encabezado)
     
     
-    for linea in result.split("\n"):
-        print(AnalizadorSintactico(linea)[0])
+    
+    for linea in result.split("\n"):        
         if(len(AnalizadorSintactico(linea)[0])!=0):
             estructura=reglasPorLinea(AnalizadorSintactico(linea)[0])
             todo+="{}: {}\n".format(numeroLinea,estructura)
