@@ -4,6 +4,7 @@ import tkinter as tk
 from tkinter import scrolledtext as st
 from tkinter.ttk import Treeview
 from ProyectoLP import analizar
+from Sintactico import AnalizadorSintactico
 
 def anlisisLexico():
     print("Analisis Lexico")
@@ -28,13 +29,25 @@ def anlisisLexico():
     
 
 def analisisSintactico():
+    
     print("Analisis Sintactico")
     result = Cajatexto.get("1.0","end-1c")
-    print("Analisis "+result)
-
-    # con este codigo rellenas la caja de texto DARINKA
-    text_code_lex.insert("1.0", result)
+    todo=''
+    numeroLinea=0
+    
+    for linea in result.split("\n"):
+        estructura=reglasPorLinea(AnalizadorSintactico(linea))
+        todo+="{}: {}\n".format(numeroLinea,estructura)
+        numeroLinea+=1  
+           
+    # con este codigo rellenas la caja de texto
+    text_code_lex.insert("1.0", todo)
     text_code_lex.configure(state="disabled")
+
+def reglasPorLinea(DicReglas):
+    lista_reglas=list(DicReglas.values())[::-1]
+    string_reglas=" -> ".join(lista_reglas)
+    return string_reglas
 
 root = Tk()
 root.title('Proyecto Final Programacion')
