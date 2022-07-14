@@ -5,7 +5,7 @@ _nOMBRE_="Darinka"
 apellido="Townsend"
 @gravedad=9.8
 $altura=168
-$opcion =    true
+$opcion =true
 
 var = 10+4-(8*$altura)
 
