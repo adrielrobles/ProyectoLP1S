@@ -157,23 +157,30 @@ def t_CADENA(t):
 def t_contadorLineas(t):
     r'\n+'
     t.lexer.lineno += t.value.count("\n")
-    
-def t_error(t):
-    print(f"Caracter no reconocido {t.value[0]} en línea {t.lineno}")
-    t.lexer.skip(1)
-  
 
-validador = lexico.lex()
+error = []   
 toks = []
 
+def t_error(t):
+    error.append(f"LexToken(Caracter no reconocido,{t.value[0]},{t.lineno},{t.lineno})")
+    t.lexer.skip(1)
+    
+
 def analizar(data):
-    toks= []
+    validador = lexico.lex()
+    global toks
+    toks =[]
+    global error
+    error = []
     validador.input(data)
     while True:
         tok = validador.token()
         if not tok:
             break 
         toks.append(str(tok))
+    if len(error)> 0:
+        for er in error:
+          toks.append(er)
     return toks
 
 
