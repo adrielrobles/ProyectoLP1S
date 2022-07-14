@@ -32,21 +32,27 @@ def analisisSintactico():
     
     print("Analisis Sintactico")
     result = Cajatexto.get("1.0","end-1c")
-    todo=''
     numeroLinea=0
+    
+    resultado_es=result
+    if(len(AnalizadorSintactico(resultado_es)[1])==0):
+        Encabezado="No hay estructura general"
+    else:
+        Encabezado=reglasPorLinea(AnalizadorSintactico(resultado_es)[1])
+    todo="General: {}\n--- Análisis Linea a Linea ---\n".format(Encabezado)
     
     
     for linea in result.split("\n"):
-        print(AnalizadorSintactico(linea))
-        if(len(AnalizadorSintactico(linea))!=0):
-            estructura=reglasPorLinea(AnalizadorSintactico(linea))
+        print(AnalizadorSintactico(linea)[0])
+        if(len(AnalizadorSintactico(linea)[0])!=0):
+            estructura=reglasPorLinea(AnalizadorSintactico(linea)[0])
             todo+="{}: {}\n".format(numeroLinea,estructura)
             
         else:
             todo+="{}: {}\n".format(numeroLinea,"Error de Sintaxis")
 
         numeroLinea+=1  
-           
+         
     # con este codigo rellenas la caja de texto
     text_code_lex.insert("1.0", todo)
     text_code_lex.configure(state="disabled")

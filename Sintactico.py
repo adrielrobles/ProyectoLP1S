@@ -4,6 +4,7 @@ import ply.yacc as yacc
 from ProyectoLP import tokens
 
 ParserTree={}
+ParserTreeTodo={}
 
 
 def p_instrucciones(p):
@@ -470,6 +471,7 @@ def p_error(p):
 #recorrido del parse
 def Recorrido(regla,lectura):
   ParserTree[regla]=lectura
+  ParserTreeTodo[regla]=lectura
 
 #analizar código entrante
 def AnalizadorSintactico(linea):
@@ -477,7 +479,7 @@ def AnalizadorSintactico(linea):
   result=sintactico.parse(linea)
   print(result)
   if result is None:
-    salida = ParserTree.copy()    
+    salida = (ParserTree.copy(),ParserTreeTodo)    
     #print(salida)
   else:
     salida = "Error en la sintaxis\n"  
