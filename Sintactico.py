@@ -474,6 +474,7 @@ def p_error(p):
   # Just discard the token and tell the parser it's okay.
   else:
     print("Error de sintaxis EOF en analizador sintáctico")
+    Errores.append("Error de sintaxis EOF en analizador sintáctico")
    
 
 #recorrido del parse
