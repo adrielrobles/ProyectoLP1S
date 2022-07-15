@@ -98,9 +98,9 @@ lbTituloLexico.grid(column=1, row=1, pady=10)
 #Tabla resultado tokens lexico
 tabla = Treeview(root,height = 15, columns =("tipo", "codigo") )
 tabla.grid(row = 2, column = 1, padx=10)
-tabla.heading('#0', text = 'Nombre', anchor = CENTER)
-tabla.heading('tipo', text = 'Tipo', anchor = CENTER)
-tabla.heading('codigo', text = 'Codigo', anchor = CENTER)
+tabla.heading('#0', text = 'Token', anchor = CENTER)
+tabla.heading('tipo', text = 'Expresión', anchor = CENTER)
+tabla.heading('codigo', text = 'Linea', anchor = CENTER)
 #Cuadro de texto para el algoritmo
 Cajatexto = Text(root)
 Cajatexto.grid(column=0, row=2)
