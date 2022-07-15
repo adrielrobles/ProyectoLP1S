@@ -47,6 +47,11 @@ def p_cuerpo(p):
               | estructuraRecorrerArchivo
     '''
 
+def p_cuerpoVarios(p):
+  ''' cuerpoVarios : cuerpo
+                   | cuerpo cuerpoVarios
+  '''
+
 # ----------------------------------Variables (Darinka Townsend)-----------------------------------
 def p_variablesTotales(p):
     '''variablesTotales : variables 
@@ -175,21 +180,21 @@ def p_estructurasControl(p):
 
 def p_estructuraIf(p):
   '''estructuraIf : IF PAR_I estructuraComparacion PAR_D cuerpo END
-                  | IF estructuraComparacion cuerpo END
-                  | IF PAR_I estructuraComparacion PAR_D cuerpo estructuraElse END
-                  | IF estructuraComparacion cuerpo estructuraElse END
+                  | IF estructuraComparacion cuerpoVarios END
+                  | IF PAR_I estructuraComparacion PAR_D cuerpoVarios estructuraElse END
+                  | IF estructuraComparacion cuerpoVarios estructuraElse END
   '''
   Recorrido("estructuraIf","If")    
 
 def p_estructuraUntil(p):
-  '''estructuraUntil : UNTIL PAR_I estructuraComparacion PAR_D cuerpo END
-                     | UNTIL estructuraComparacion cuerpo END
+  '''estructuraUntil : UNTIL PAR_I estructuraComparacion PAR_D cuerpoVarios END
+                     | UNTIL estructuraComparacion cuerpoVarios END
   '''
   Recorrido("estructuraUntil","Until")
   
 
 def p_estructuraElse(p):
-  'estructuraElse : ELSE cuerpo'
+  'estructuraElse : ELSE cuerpoVarios'
   
   Recorrido("estructuraElse","Else")
 
@@ -203,8 +208,8 @@ def p_estructuraWhenI(p):
 
 
 def p_estructuraWhen(p):
-  '''estructuraWhen : WHEN sentenciaWhen cuerpo
-                    | estructuraWhen WHEN sentenciaWhen cuerpo
+  '''estructuraWhen : WHEN sentenciaWhen cuerpoVarios
+                    | estructuraWhen WHEN sentenciaWhen cuerpoVarios
   '''
   Recorrido("estructuraWhen","When")
 
@@ -308,12 +313,12 @@ def p_definicionF(p):
   Recorrido("definicionF","Definicion de funcion")
   
 def p_funcionSinAtributos(p):
-  '''funcionSinAtributos : NOMBRE_FUNCION PAR_I PAR_D cuerpo
+  '''funcionSinAtributos : NOMBRE_FUNCION PAR_I PAR_D cuerpoVarios
   '''
   Recorrido("funcionSinAtributos","Funcion sin atributos")
 
 def p_funcionConAtributos(p):
-  '''funcionConAtributos : NOMBRE_FUNCION PAR_I parametrosFunciones PAR_D cuerpo
+  '''funcionConAtributos : NOMBRE_FUNCION PAR_I parametrosFunciones PAR_D cuerpoVarios
   '''
   Recorrido("funcionConAtributos","Funcion con atributos")
 
@@ -332,7 +337,7 @@ def p_llamadoFunciones(p):
 
 
 def p_funcionConDefectos(p):
-  'funcionConDefectos : NOMBRE_FUNCION PAR_I parametrosFuncionesDefecto PAR_D cuerpo'
+  'funcionConDefectos : NOMBRE_FUNCION PAR_I parametrosFuncionesDefecto PAR_D cuerpoVarios'
   Recorrido("funcionConDefectos","Funcion con atributos por defecto")
 
 def p_parametrosFuncionesDefecto(p):
@@ -428,7 +433,7 @@ def p_estructuraLeerArchivoLinea(p):
     '''estructuraLeerArchivoLinea : FILE PUNTO READLINES PAR_I TiposNomVariables PAR_D
                                   | FILE PUNTO READLINES PAR_I CADENA PAR_D
     '''
-    Recorrido("estructuraLeerArchivoLinea","Linea")
+    Recorrido("estructuraLeerArchivoLinea","Leer Lineas")
     
 def p_estructuraAbrirArchivo(p):
   '''estructuraAbrirArchivo : FILE PUNTO OPEN PAR_I TiposNomVariables COMA CADENA PAR_D
@@ -438,9 +443,9 @@ def p_estructuraAbrirArchivo(p):
 # ----------------------------------RECORRER ARCHIVO (Adriel Robles) -----------------------------------
 
 def p_estructuraRecorrerArchivo(p):
-    '''estructuraRecorrerArchivo : variablesRecorrer PUNTO EACH DO PIPE NOMBRE_VARIABLE PIPE cuerpo END
-                                 | TiposNomVariables PUNTO EACH DO PIPE NOMBRE_VARIABLE PIPE cuerpo END
-                                 | estructuraAbrirArchivo DO PIPE NOMBRE_VARIABLE PIPE cuerpo END
+    '''estructuraRecorrerArchivo : variablesRecorrer PUNTO EACH DO PIPE NOMBRE_VARIABLE PIPE cuerpoVarios END
+                                 | TiposNomVariables PUNTO EACH DO PIPE NOMBRE_VARIABLE PIPE cuerpoVarios END
+                                 | estructuraAbrirArchivo DO PIPE NOMBRE_VARIABLE PIPE cuerpoVarios END
     '''
     Recorrido("estructuraRecorrerArchivo","Recorrer Archivo")
 

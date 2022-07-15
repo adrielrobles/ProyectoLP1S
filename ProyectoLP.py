@@ -104,7 +104,7 @@ t_MODULO_IGUAL = r'%='
 
 #Tipos de datos
 t_ENTERO = r'0|\-?[1-9][0-9]*'
-t_FLOTANTE = r'(0|\-?[1-9][0-9]*)\.(0|[1-9][0-9]*)'
+t_FLOTANTE = r'(0|\-?[1-9][0-9]*)\.([0-9]*)'
 
 
 #Termina Jean Moreano
