@@ -5,6 +5,7 @@ from ProyectoLP import tokens
 
 ParserTree={}
 ParserTreeTodo={}
+Errores=[]
 
 
 def p_instrucciones(p):
@@ -467,7 +468,9 @@ def p_estructuraEscribirArchivo(p):
 #Imprime errores según las reglas
 def p_error(p):
   if p:
-    print("Error de sintaxis en token", p.type)
+    resultadop="Error de sintaxis en el token {}".format(p.type)
+    #print(resultadop)
+    Errores.append("Error de sintaxis en el token {}".format(p.type))
   # Just discard the token and tell the parser it's okay.
   else:
     print("Error de sintaxis EOF en analizador sintáctico")
@@ -478,17 +481,24 @@ def Recorrido(regla,lectura):
   ParserTree[regla]=lectura
   ParserTreeTodo[regla]=lectura
 
+
+
+def ValidaEstructuraGeneral():
+  
+  return Errores
+
+
 #analizar código entrante
 def AnalizadorSintactico(linea):
   sintactico = yacc.yacc()
   result=sintactico.parse(linea)
   
   if result is None:
-    salida = (ParserTree.copy(),ParserTreeTodo)    
+    salida = (ParserTree.copy(),ParserTreeTodo,Errores)    
     
   else:
     salida = "Anàlisis Sintàctico no valido\n"  
-  limpiarParseTree() 
+  limpiarParseTree()
   return salida
 
 def limpiarParseTree():
@@ -496,6 +506,7 @@ def limpiarParseTree():
 
 def limpiarParserTreeTodo():
   ParserTreeTodo.clear()
+  Errores.clear()
 
 
 

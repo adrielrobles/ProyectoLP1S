@@ -6,6 +6,7 @@ from tkinter.ttk import Treeview
 from ProyectoLP import analizar
 from Sintactico import AnalizadorSintactico
 from Sintactico import limpiarParserTreeTodo
+
 def Limpiar():
     for row in tabla.get_children():
         tabla.delete(row)
@@ -46,10 +47,15 @@ def analisisSintactico():
     result = Cajatexto.get("1.0","end-1c")
     numeroLinea=0
     
+    
     resultado_es=result
+
+    listaerrores=AnalizadorSintactico(resultado_es)[2]
+    valido=len(listaerrores)==0
+
     print("------ GENERAL ------")
     print(AnalizadorSintactico(resultado_es)[1])
-    if(len(AnalizadorSintactico(resultado_es)[1])==0):
+    if(len(AnalizadorSintactico(resultado_es)[1])==0 or valido==False):
         Encabezado="No hay estructura general"
     else:
         Encabezado=reglasPorLinea(AnalizadorSintactico(resultado_es)[1])
@@ -104,13 +110,13 @@ lbTituloSintactico = Label(root, text="Analisis Sintactico", font=tituloInstruci
 lbTituloSintactico.grid(column=0, row=3, pady=15)
 # Botones de Analisis Lexico
 btnLexico = Button(root, text="Compilar", width=30, command=Compilacion)
-btnLexico.grid(row=6, column=1)
+btnLexico.grid(row=3, column=1)
 # Botones de Analisis Sintactico
 btnLimpiar = Button(root, text="Limpiar Codigo", width=30, command=Limpiar)
-btnLimpiar.grid( row=3, column=1)
+btnLimpiar.grid( row=4, column=1)
 # Resultado Analisis Sintatico
-text_code_lex = st.ScrolledText(root, width=60, height=5)
-text_code_lex.grid(column=0, row=6, padx=10, pady=10)
+text_code_lex = st.ScrolledText(root, width=70, height=9)
+text_code_lex.grid(column=0, row=4, padx=10, pady=10)
 
 
 root.mainloop()
